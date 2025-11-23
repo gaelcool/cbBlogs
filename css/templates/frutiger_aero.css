@@ -1,0 +1,42 @@
+/* Template: Frutiger Aero (Default) */
+.template-frutiger {
+    /* Background handled by inline style or default */
+    color: #333;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    padding: 2.5rem;
+}
+
+/* Template: Pink Classic */
+.template-pink {
+    /* Background handled by inline style or default */
+    color: #5a3e4a;
+}
+
+.solid-card {
+    background: #FFD6E8;
+    border: 2px solid #FFB6D9;
+    border-radius: 12px;
+    box-shadow: 5px 5px 0px rgba(255, 107, 157, 0.2);
+    padding: 2rem;
+}
+
+.template-pink .post-title {
+    color: #D63384;
+}
+
+.template-pink .post-author {
+    color: #D63384;
+}
+
+.template-pink .post-tag {
+    background: #FF6B9D;
+    border-radius: 4px;
+}
