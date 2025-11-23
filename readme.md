@@ -1,8 +1,8 @@
-# 📰 CbBlogs - Plataforma de Blogs Escolar
+#  CbBlogs - Plataforma de Blogs Escolar
 
 Una plataforma de blogs moderna y colaborativa diseñada para la comunidad escolar (CBTIS 03), con un sistema de usuarios, publicación de artículos y un diseño visual atractivo estilo "Frutiger Aero" / Pastel.
 
-## 🚀 Características
+##  Características
 
 - **Sistema de Usuarios**: Registro, inicio de sesión y gestión de perfiles.
 - **Blogs**: Crear, leer y explorar artículos de otros compañeros.
@@ -11,13 +11,13 @@ Una plataforma de blogs moderna y colaborativa diseñada para la comunidad escol
 - **Estadísticas**: Visualización de blogs totales por usuario.
 - **Seguridad**: Protección basica contra inyecciones SQL (PDO) y XSS.
 
-## 📋 Requisitos
+##  Requisitos
 
 - **Servidor Web**: Apache (XAMPP recomendado).
 - **PHP**: 7.4 o superior (con extensión PDO habilitada).
 - **Base de Datos**: SQLite 3 (integrado en PHP).
 
-## 🛠️ Instalación
+##  Instalación
 
 1.  **Clonar/Descargar**: Coloca los archivos del proyecto en tu carpeta `htdocs` (ej. `C:\xampp\htdocs\CbBlogs`).
 2.  **Inicializar Base de Datos**:
@@ -44,7 +44,7 @@ CbBlogs/
 └── style.css / *.css       # Hojas de estilo
 ```
 
-## 🗄️ Base de Datos (SQLite)****
+## Database (SQLite)****
 
 El sistema utiliza SQLite. El esquema principal (`data/init.sql`) incluye:
 
@@ -71,7 +71,7 @@ El sistema utiliza SQLite. El esquema principal (`data/init.sql`) incluye:
 - `user_id_C`: Autor del comentario.
 
 
-## 🎯 Uso
+## Usage/uso
 
 1.  **Registro**: Crea una cuenta en `registrar.php`.
 2.  **Login**: Inicia sesión en `login.php`.
@@ -80,7 +80,7 @@ El sistema utiliza SQLite. El esquema principal (`data/init.sql`) incluye:
 5.  **Leer**: Explora los artículos de la comunidad en "Leer Blogs".
 6.  **Perfil**: Actualiza tus datos en "Mi Cuenta".
 
-## 🔧 Tecnologías
+##  Tecnologías
 
 - **Backend**: PHP (PDO, SQLite).
 - **Frontend**: HTML5, CSS3 (Flexbox, Grid, Glassmorphism), JavaScript.
