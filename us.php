@@ -55,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             </div>
 
             <nav>
-                <a href="index.html">Inicio</a>
+                <a href="index.php">Inicio</a>
                 <a href="registrar.php">Registro</a>
             </nav>
 
             <form action="login.php" method="POST" class="login-form">
                 <input type="text" name="user" placeholder="Usuario" required>
                 <input type="password" name="clave" placeholder="Contraseña" required>
-                <button type="submit" id="submitBtn">Entrar a tu plaza</button>
+                <button type="submit" id="submitBtn">Entrar a tu comunidad</button>
             </form>
             
             <div class="smallUnder">

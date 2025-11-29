@@ -29,6 +29,7 @@ CREATE TABLE user (
     clave TEXT NOT NULL,
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     grade INTEGER DEFAULT 1,
+    user_contributions INTEGER DEFAULT 0,
     genero_lit_fav TEXT DEFAULT 'General'
 );
 
@@ -78,7 +79,9 @@ CREATE TABLE comment (
     user_id_C TEXT NOT NULL,
     grade INTEGER,
     text TEXT NOT NULL,
-    FOREIGN KEY (user_id_C) REFERENCES user(usuario) ON DELETE CASCADE
+    post_id INTEGER,
+    FOREIGN KEY (user_id_C) REFERENCES user(usuario) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
 
 -- ================================================
@@ -303,7 +306,7 @@ CREATE INDEX idx_acciones_admin ON problemasHH_acciones(admin_id);
 -- 1. Insert Users
 INSERT INTO user (usuario, nombre, email, clave, fecha_registro, grade, genero_lit_fav)
 VALUES
-    ('Admin', 'Administrador Principal', 'admin@cbblogs.com', 'admin123', CURRENT_TIMESTAMP, 3, 'General'),
+    ('Admin', 'Administrador Principal', 'admin@cbblogs.com', 'admin123', CURRENT_TIMESTAMP, 5, 'General'),
     ('TestUser', 'Usuario de Prueba', 'test@cbblogs.com', 'test123', CURRENT_TIMESTAMP, 1, 'Ficción');
 
 INSERT INTO user (usuario, nombre, email, clave, fecha_registro, grade, genero_lit_fav)

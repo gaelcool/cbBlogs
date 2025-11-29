@@ -190,10 +190,6 @@ if ($hour < 12) {
         </div>
         <?php endif; ?>
 
-        <!-- Impact Dashboard -->
-       
-
-        <!-- Recent Changes Section -->
         <?php if (!empty($recentChanges)): ?>
         <div class="changes-section">
             <h2 class="section-heading">

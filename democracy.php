@@ -107,15 +107,50 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; ?>
                         
                         <div class="suggestion-footer">
-                            <div class="support-count">
+                            <div class="support-count" id="support-count-<?php echo $sug['id']; ?>">
                                 ❤️ <?php echo $sug['real_support_count']; ?> apoyos
                             </div>
-                            <!-- Future: Add support button functionality -->
+                            <button class="btn-support" onclick="voteSuggestion(<?php echo $sug['id']; ?>)">❤️ Apoyar</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
     </div>
+    </div>
+
+    <script>
+    function voteSuggestion(suggestionId) {
+        if (!confirm('¿Estás seguro de que quieres apoyar esta sugerencia?')) return;
+
+        fetch('vote_suggestion.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'suggestion_id=' + suggestionId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Update count visually
+                const countElement = document.getElementById('support-count-' + suggestionId);
+                if (countElement) {
+                    countElement.innerHTML = '❤️ ' + data.new_count + ' apoyos';
+                }
+                if (data.points_awarded) {
+                    alert("¡Felicidades! Tu voto ha ayudado a que el autor reciba puntos de bonificación.");
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al procesar tu voto.');
+        });
+    }
+    </script>
 </body>
 </html>

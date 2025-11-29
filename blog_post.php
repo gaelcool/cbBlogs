@@ -16,6 +16,57 @@ if (!$post_id || !is_numeric($post_id)) {
     
     if (!$post) {
         $error = 'Blog post not found';
+    } else {
+        // Handle Comment Submission
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_text'])) {
+            $commentText = trim($_POST['comment_text']);
+            
+            if (!empty($commentText)) {
+                try {
+                    // 1. Insert Comment
+                    $stmt = $pdo->prepare("
+                        INSERT INTO comment (post_id, user_id_C, grade, text)
+                        VALUES (:pid, :uid, :grade, :text)
+                    ");
+                    $stmt->execute([
+                        ':pid' => $post_id,
+                        ':uid' => $_SESSION['usuario'], // user_id_C stores username based on schema
+                        ':grade' => $_SESSION['grade'],
+                        ':text' => $commentText
+                    ]);
+                    
+                    // 2. Points System Logic
+                    if (!isset($_SESSION['session_points'])) {
+                        $_SESSION['session_points'] = 0;
+                    }
+                    
+                    if ($_SESSION['session_points'] < 3) {
+                        // Award 1 point
+                        $stmt = $pdo->prepare("UPDATE user SET user_contributions = user_contributions + 1 WHERE id_usr = :uid");
+                        $stmt->execute([':uid' => $_SESSION['id_usr']]);
+                        
+                        $_SESSION['session_points']++;
+                    }
+                    
+                    // Redirect to avoid resubmission
+                    header("Location: blog_post.php?id=$post_id&status=comment_added");
+                    exit;
+                } catch (Exception $e) {
+                    $error = 'Error posting comment: ' . $e->getMessage();
+                }
+            }
+        }
+        
+        // Fetch Comments
+        $stmt = $pdo->prepare("
+            SELECT c.*, u.nombre as commenter_name 
+            FROM comment c
+            LEFT JOIN user u ON c.user_id_C = u.usuario
+            WHERE c.post_id = :pid
+            ORDER BY c.created_at DESC
+        ");
+        $stmt->execute([':pid' => $post_id]);
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
@@ -256,6 +307,47 @@ if (!$post_id || !is_numeric($post_id)) {
                     <?php echo convertnewlines($post['content']); ?>
                 </div>
             </article>
+
+            <!-- Comments Section -->
+            <div class="comments-section" style="margin-top: 3rem;">
+                <h2 style="color: var(--text); margin-bottom: 1.5rem; font-size: 1.8rem;">
+                    Comentarios (<?php echo count($comments); ?>)
+                </h2>
+
+                <!-- Comment Form -->
+                <div class="comment-form-card" style="background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <form method="post">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text);">Deja un comentario</label>
+                            <textarea name="comment_text" rows="3" style="width: 100%; padding: 1rem; border-radius: 8px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); font-family: inherit;" placeholder="Comparte tu opinión..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="background: var(--accent); color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">Publicar Comentario</button>
+                        <span style="font-size: 0.8rem; margin-left: 1rem; opacity: 0.7;">(Ganarás 1 punto, máx 3 por sesión)</span>
+                    </form>
+                </div>
+
+                <!-- Comments List -->
+                <div class="comments-list">
+                    <?php if (empty($comments)): ?>
+                        <p style="text-align: center; opacity: 0.7; padding: 2rem;">Sé el primero en comentar.</p>
+                    <?php else: ?>
+                        <?php foreach ($comments as $comment): ?>
+                            <div class="comment-card" style="background: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                                <div class="comment-header" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--primary);"><?php echo htmlEscape($comment['user_id_C']); ?></span>
+                                        <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; margin-left: 0.5rem;">Grado <?php echo $comment['grade']; ?></span>
+                                    </div>
+                                    <span style="font-size: 0.8rem; opacity: 0.6;"><?php echo TraduceSQLfecha($comment['created_at']); ?></span>
+                                </div>
+                                <div class="comment-body" style="line-height: 1.5;">
+                                    <?php echo nl2br(htmlEscape($comment['text'])); ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
         <?php endif; ?>
     </div>
 </body>

@@ -151,6 +151,21 @@ $grievances = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span>📅 <?php echo TraduceSQLfecha($g['submitted_at']); ?></span>
                         <span>ID: #<?php echo $g['id']; ?></span>
                     </div>
+
+                    <?php if ($g['involves_student'] || $g['involves_mod'] || $g['involves_infrastructure']): ?>
+                    <div style="margin-top: 0.5rem; font-size: 0.9em;">
+                        <strong>Involucra:</strong>
+                        <?php if ($g['involves_student']): ?>
+                            <span style="background: #e9ecef; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">Estudiantes</span>
+                        <?php endif; ?>
+                        <?php if ($g['involves_mod']): ?>
+                            <span style="background: #e9ecef; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">Moderadores</span>
+                        <?php endif; ?>
+                        <?php if ($g['involves_infrastructure']): ?>
+                            <span style="background: #e9ecef; padding: 2px 6px; border-radius: 4px;">Instalaciones</span>
+                        <?php endif; ?>
+                    </div>
+                    <?php endif; ?>
                     
                     <div class="suggestion-body">
                         <?php echo nl2br(htmlEscape($g['description'])); ?>

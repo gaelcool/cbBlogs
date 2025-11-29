@@ -20,6 +20,9 @@ $sql = "
         p.reporter_id,
         p.submitted_at,
         p.admin_asignado,
+        p.involves_student,
+        p.involves_mod,
+        p.involves_infrastructure,
         u.usuario as reporter_username,
         u.nombre as reporter_name
     FROM problemasHH p
@@ -139,6 +142,21 @@ $adminInfo = obtenerAdminInfo($pdo, $_SESSION['id_usr']);
                             <div class="meta-item">
                                 <strong>Fecha:</strong> <?php echo TraduceSQLfecha($reporte['submitted_at']); ?>
                             </div>
+                            
+                            <?php if ($reporte['involves_student'] || $reporte['involves_mod'] || $reporte['involves_infrastructure']): ?>
+                            <div class="meta-item" style="flex-basis: 100%; margin-top: 0.5rem;">
+                                <strong>Involucra:</strong>
+                                <?php if ($reporte['involves_student']): ?>
+                                    <span class="badge" style="background: #e9ecef; color: #333; font-weight: normal;">Estudiantes</span>
+                                <?php endif; ?>
+                                <?php if ($reporte['involves_mod']): ?>
+                                    <span class="badge" style="background: #e9ecef; color: #333; font-weight: normal;">Moderadores</span>
+                                <?php endif; ?>
+                                <?php if ($reporte['involves_infrastructure']): ?>
+                                    <span class="badge" style="background: #e9ecef; color: #333; font-weight: normal;">Instalaciones</span>
+                                <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                         
                         <div class="reporte-footer">

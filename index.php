@@ -45,7 +45,7 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <?php if ($featuredPost): ?>
         <section class="featured-post-section">
-            <div class="glass-container" style="padding: 2.5rem;">
+            <div class="glass-container" style="padding: 2.5rem; margin: 2rem 0;">
                 <h2 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1.5rem; text-align: center;">
                     Blog Destacado
                 </h2>

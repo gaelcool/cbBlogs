@@ -8,14 +8,12 @@ Estas funcionalidades están parcialmente preparadas en la base de datos pero re
    - Implementar lógica para ocultar email del reportero si es anónimo en notificaciones.
 
 2. **Detalles de Involucrados (Campos `involves_*`)**
-   - Agregar campos en el formulario `submit_grievance.php` para especificar si involucra estudiantes, staff o instalaciones.
+   - Agregar campos en el formulario `submit_grievance.php` para especificar si involucra estudiantes, staff o instalaciones. (Implementado!)
    - Mostrar estos flags en `admin_grievances.php` y `reportes.php`.
 
-3. **Timeline de Acciones**
-   - Crear una vista visual en `admin_grievances.php` que muestre el historial completo de acciones (`problemasHH_acciones`) como una línea de tiempo.
+3. **Linea de tiempo**
+   -Crear una linea de tiempo innovativa que demuestre el crecimiento de la comunidad / base de datos. 
 
-4. **Validación de Categorías**
-   - Implementar descripciones detalladas para cada categoría en el formulario de reporte para asegurar clasificación correcta.
 
 ## Sección 2: Desarrollo Futuro (Para Implementación por Usuario)
 Estas son grandes funcionalidades planeadas para futuras versiones:
@@ -39,3 +37,5 @@ Estas son grandes funcionalidades planeadas para futuras versiones:
 4. **Impact Scoring System**
    - Sistema ponderado para calcular el impacto de un usuario en la comunidad (blogs, recursos, votos).
    - Ver detalles en `futurefeatures.txt` anterior (sección eliminada por simplificación).
+
+   haz un plan definitivo para implementar el sistemas de puntos mencionado en mucha de la documentacion. El sistema debe ser algo asi: Cada estudiante empieza con 1 punto, cada blog es 10 puntos. Cada sugerencia con >5 likes =10 puntos. Cada comentario 

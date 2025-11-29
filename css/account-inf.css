@@ -277,10 +277,10 @@ footer {
     margin-bottom: 2rem;
 }
 
-.stat-card {
+.stat-card {    
     background: var(--primary);
     color: var(--white);
-    padding: 1rem;
+    padding: 0rem;
     border-radius: 8px;
     text-align: center;
 }

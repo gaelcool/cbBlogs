@@ -21,10 +21,10 @@
 
 body {
     min-height: 100vh;
-    /* background: linear-gradient(135deg, #2c2f33, #1a1c1f); */
     color: #eee;
     background-image: url("../img/body.jpg");
     background-size: cover;
+    backdrop-filter: blur(12px);
 }
 
 .smallUnder a{

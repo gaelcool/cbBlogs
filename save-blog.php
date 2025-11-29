@@ -62,6 +62,16 @@ try {
     ]);
 
     if ($result) {
+        // Award points for publishing a blog
+        $userId = $_SESSION['id_usr'];
+        $updatePoints = $pdo->prepare("UPDATE user SET user_contributions = user_contributions + 10 WHERE id_usr = :uid");
+        $updatePoints->execute([':uid' => $userId]);
+
+        // Log contribution
+        $lastId = $pdo->lastInsertId();
+        $logContrib = $pdo->prepare("INSERT INTO user_contributions (user_id, contribution_type, contribution_id, contribution_date) VALUES (:uid, 'blog', :bid, CURRENT_TIMESTAMP)");
+        $logContrib->execute([':uid' => $userId, ':bid' => $lastId]);
+
         header("Location: Read.php?status=success");
         exit;
     } else {

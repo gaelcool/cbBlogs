@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <p>¿No tienes cuenta? <a href="registrar.php">Regístrate aquí</a></p>
 
-            <p><a href="index.html">← Volver al inicio</a></p>
+            <p><a href="index.php">← Volver al inicio</a></p>
         </form>
     </div>
 </body>

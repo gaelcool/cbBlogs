@@ -20,6 +20,34 @@ $stmt = $pdo->prepare("SELECT template_name FROM user_blog_style WHERE user_id =
 $stmt->execute([':uid' => $_SESSION['id_usr']]);
 $style = $stmt->fetch(PDO::FETCH_ASSOC);
 $currentTemplate = $style ? ($style['template_name'] === 'pink_classic' ? 'Pink Classic' : 'Frutiger Aero') : 'Frutiger Aero';
+
+// Fetch user contributions points
+$stmt = $pdo->prepare("SELECT user_contributions FROM user WHERE id_usr = :uid");
+$stmt->execute([':uid' => $_SESSION['id_usr']]);
+$points = $stmt->fetchColumn() ?: 0;
+
+// Define unlocks
+$unlocks = [
+    30 => ['name' => 'Template Desbloqueado', 'icon' => ''],
+    60 => ['name' => 'Logo Dorado', 'icon' => '👑'],
+    80 => ['name' => 'Ayudante', 'icon' => '💛'],
+    100 => ['name' => 'Insignia', 'icon' => '🏅'],
+    150 => ['name' => 'Solicitar Mod', 'icon' => '🛡']
+];
+
+// Calculate next unlock
+$nextUnlockPoints = 150;
+$nextUnlockName = "Max Level";
+foreach ($unlocks as $p => $data) {
+    if ($points < $p) {
+        $nextUnlockPoints = $p;
+        $nextUnlockName = $data['name'];
+        break;
+    }
+}
+
+$progressPercent = min(100, ($points / $nextUnlockPoints) * 100);
+if ($points >= 150) $progressPercent = 100;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -86,6 +114,30 @@ $currentTemplate = $style ? ($style['template_name'] === 'pink_classic' ? 'Pink 
             <div class="stat-card">
                 <div class="stat-value"><?php echo TraduceSQLfecha($_SESSION['fecha_registro'] ?? ''); ?></div>
                 <div class="stat-label">Fecha Registro</div>
+            </div>
+        </div>
+
+        <!-- Points & Progress Section -->
+        <div class="style-card" style="display:block; margin-bottom: 2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h3 style="margin:0;"> Puntos de Contribución: <?php echo $points; ?></h3>
+                <span>Siguiente: <?php echo $nextUnlockName; ?> (<?php echo $nextUnlockPoints; ?> pts)</span>
+            </div>
+            
+            <div style="background:rgba(255,255,255,0.1); border-radius:10px; height:20px; width:100%; overflow:hidden;">
+                <div style="background:var(--primary); height:100%; width:<?php echo $progressPercent; ?>%; transition: width 0.5s ease;"></div>
+            </div>
+
+            <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                <?php foreach ($unlocks as $reqPoints => $data): ?>
+                    <div style="background: <?php echo $points >= $reqPoints ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'; ?>; 
+                                padding: 0.5rem 1rem; border-radius: 8px; 
+                                opacity: <?php echo $points >= $reqPoints ? '1' : '0.5'; ?>;
+                                border: 1px solid <?php echo $points >= $reqPoints ? 'var(--primary)' : 'transparent'; ?>;">
+                        <?php echo $data['icon']; ?> <?php echo $data['name']; ?> 
+                        <span style="font-size:0.8em; opacity:0.7;">(<?php echo $reqPoints; ?> pts)</span>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
