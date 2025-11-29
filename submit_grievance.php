@@ -109,12 +109,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <option value="urgent">Urgente</option>
                         </select>
                     </div>
+                    <div style="flex: 1;">
                     <label class="form-label">involucrados</label>
                     <select name="involucrados" class="form-control" required>
                             <option value="student">Estudiante/s</option>
                             <option value="mod">Moderardores</option>
                             <option value="School_Infrastructure">Instalaciones</option>
                     </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">
