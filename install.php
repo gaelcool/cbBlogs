@@ -161,7 +161,7 @@ if (isset($_SESSION['count']) || isset($_SESSION['error']))
                 </p>
                 <p>
                     <a href="registrar.php">Ir al registro</a> | 
-                    <a href="index.html">Ir al inicio</a> |
+                    <a href="index.php">Ir al inicio</a> |
                     <a href="login.php">Iniciar sesión</a>
                 </p>
             </div>
