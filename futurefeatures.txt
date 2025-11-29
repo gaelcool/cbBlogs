@@ -1,0 +1,41 @@
+# Funcionalidades Futuras y Pendientes
+
+## Sección 1: Funcionalidades Incompletas (Pendientes de Implementación)
+Estas funcionalidades están parcialmente preparadas en la base de datos pero requieren desarrollo de UI y lógica adicional:
+
+1. **Sistema de Anonimidad Completo**
+   - Asegurar que la anonimidad se respete en todas las vistas futuras.
+   - Implementar lógica para ocultar email del reportero si es anónimo en notificaciones.
+
+2. **Detalles de Involucrados (Campos `involves_*`)**
+   - Agregar campos en el formulario `submit_grievance.php` para especificar si involucra estudiantes, staff o instalaciones.
+   - Mostrar estos flags en `admin_grievances.php` y `reportes.php`.
+
+3. **Timeline de Acciones**
+   - Crear una vista visual en `admin_grievances.php` que muestre el historial completo de acciones (`problemasHH_acciones`) como una línea de tiempo.
+
+4. **Validación de Categorías**
+   - Implementar descripciones detalladas para cada categoría en el formulario de reporte para asegurar clasificación correcta.
+
+## Sección 2: Desarrollo Futuro (Para Implementación por Usuario)
+Estas son grandes funcionalidades planeadas para futuras versiones:
+
+1. **Sistema de Puntos (`puntos_contribucion`)**
+   - Mecánica para acumular puntos por reportes válidos, sugerencias o blogs.
+   - Desbloqueo automático de nivel "Ayudante" al alcanzar cierto umbral de puntos.
+   - Dashboard de progreso para usuarios en `Account-info.php`.
+
+2. **Sistema de Moderadores**
+   - Formulario de solicitud para usuarios "Ayudante" que deseen ser "Moderador".
+   - Panel para que Admins (Nivel 3) aprueben o rechacen solicitudes.
+   - Sistema de notificaciones para informar la decisión.
+
+3. **Panel de Gestión de Admins (Solo Nivel 3)**
+   - Interfaz para promover/degradar usuarios manualmente entre niveles (1, 2, 3).
+   - Ver audit trail completo de todas las acciones administrativas del sistema.
+   - Estadísticas de desempeño de moderadores.
+   - Capacidad de revocar acceso administrativo inmediatamente.
+
+4. **Impact Scoring System**
+   - Sistema ponderado para calcular el impacto de un usuario en la comunidad (blogs, recursos, votos).
+   - Ver detalles en `futurefeatures.txt` anterior (sección eliminada por simplificación).

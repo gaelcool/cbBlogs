@@ -207,8 +207,8 @@ CREATE TABLE problemasHH (
     
     -- Partes involucradas (opcional - funcionalidad futura)
     involves_student BOOLEAN DEFAULT 0,
-    involves_staff BOOLEAN DEFAULT 0,
-    involves_facility BOOLEAN DEFAULT 0,
+    involves_mod BOOLEAN DEFAULT 0,
+    involves_infrastructure BOOLEAN DEFAULT 0,
     
     -- Seguimiento de status
     status TEXT DEFAULT 'submitted' CHECK(status IN ('submitted', 'acknowledged', 'investigating', 'resolved', 'closed')),
