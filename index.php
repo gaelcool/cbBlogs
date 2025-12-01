@@ -68,25 +68,12 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
                         para leer más historias como esta
                     </p>
                 </div>
-            </div>
-        </section>
-        <?php endif; ?>
-
-        <section class="cta-section">
-            <div class="glass-container" style="padding: 3rem;">
-                <h2 style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;">
-                    Bienvenido a <a href="registrar.php"
-                        style="color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent); transition: all 0.3s ease;">tu</a>
-                    comunidad estudiantil.
-                </h2>
-                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
-                    Crea tu cuenta y comienza a compartir con tus compañeros del CBTis 03
-                </p>
                 <div class="cta-buttons">
                     <a href="login.php" class="btn btn-secondary">Ya tengo cuenta</a>
                 </div>
             </div>
         </section>
+        <?php endif; ?>
 
         <div class="info-grid">
 

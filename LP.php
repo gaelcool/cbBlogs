@@ -92,7 +92,6 @@ if ($hour < 12) {
 
         <!-- Hub Portals Grid -->
         <div class="hub-grid">
-            <!-- Write Portal - Creative Zone -->
              <section class="top-lanes">
             <div class="portal-card portal-primary">
                 <div class="portal-icon section-iconOG"></div>
@@ -106,7 +105,6 @@ if ($hour < 12) {
                 <a href="Write.php" class="portal-btn btn btn-primary">Escribir Blog</a>
             </div>
 
-            <!-- Read Portal - Library -->
             <div class="portal-card">
                 <div class="portal-icon section-icon"></div>
                 <h3 class="portal-title">Biblioteca</h3>
@@ -141,7 +139,6 @@ if ($hour < 12) {
             </div>
         </div>
 
-            <!-- Resources Portal - Study Hall -->
             <section class="bottom-lanes">
             <div class="portal-card">
                 <div class="portal-icon section-icon-study"></div>
@@ -155,7 +152,6 @@ if ($hour < 12) {
                 <a href="resources.php" class="portal-btn btn">Ver Recursos</a>
             </div>
 
-            <!-- Portal democratico - Consejo Estudiantil -->
             <div class="portal-card portal-accent">
                 <div class="portal-icon section-icon-tips"></div>
                 <h3 class="portal-title">Consejo Estudiantil</h3>
@@ -170,7 +166,6 @@ if ($hour < 12) {
             </div>
         </div>
  </section>
-        <!-- Trending Feed -->
         <?php if (!empty($trendingPosts)): ?>
         <div class="trending-section">
             <h2 class="section-heading">
