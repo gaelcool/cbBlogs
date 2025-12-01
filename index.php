@@ -122,10 +122,7 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
         <div class="footer-content">
             <h3> CbBlogs</h3>
             <p>Tu foro estudiantil del CBTis 03</p>
-            <p style="margin-top: 1rem; opacity: 0.8;">
-                Abierto las 24 horas del día, los 365 días del año
-            </p>
-            <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+            <p style="margin-top: .6rem; font-size: 0.9rem;">
                 &copy; 2025 CbBlogs - Suerte, Tlaxcala
             </p>
         </div>
