@@ -22,7 +22,7 @@
 body {
     min-height: 100vh;
     color: #eee;
-    background-image: url("../img/body.jpg");
+    background-image: url("../img/see.jpg");
     background-size: cover;
     backdrop-filter: blur(12px);
 }
