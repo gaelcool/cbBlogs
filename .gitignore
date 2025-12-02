@@ -5,3 +5,4 @@ lib/common.php.backup
 commentsectionMockup.php
 lib/common_clean_backup.php
 data/study_resources
+data.sqlite

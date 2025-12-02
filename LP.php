@@ -14,6 +14,18 @@ $total_blogs = countUserPosts($pdo, $_SESSION['usuario']);
 // Get Impact Stats
 $impactStats = getUserImpactStats($pdo, $_SESSION['id_usr']);
 
+//check progress
+$progressPoints = getUserImpactStats($pdo, $_SESSION['user_contribution']);
+$unlockThreshold = 100;
+$progressPercent = min(100, ($currentPoints / $unlockThreshold) * 100);
+$stmt = $pdo->prepare("SELECT user_contributions FROM user WHERE id_usr = :uid");
+$stmt->execute([':uid' => $_SESSION['id_usr']]);
+$isUnlocked = $currentPoints >= $unlockThreshold;
+$pointsNeeded = max(0, $unlockThreshold - $currentPoints);
+
+
+
+
 // Get Recent Implemented Changes
 $stmt = $pdo->query("
     SELECT ic.*, u.nombre as implementer_name 
@@ -23,6 +35,8 @@ $stmt = $pdo->query("
     LIMIT 3
 ");
 $recentChanges = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 // Get Trending Posts (Latest 3 for now)
 $stmt = $pdo->query("
@@ -85,9 +99,11 @@ if ($hour < 12) {
                 <h1><?php echo $greeting; ?>, <?php echo htmlEscape($_SESSION['nombre']); ?>!</h1>
                 <p class="hero-subtitle">Bienvenido al Hub Central de CbNoticias</p>
             </div>
-            <a href="Write.php" class="quick-action-btn">
-                <span>Crear Blog Ahora</span>
-            </a>
+            <div class='progressBtn'>
+    <a href="<?php echo $isUnlocked ? 'secret.php' : 'javascript:void(0)'; ?>">
+        <span><?php echo $progressPercent; ?>%</span>
+    </a>
+        </div>
         </div>
 
         <!-- Hub Portals Grid -->

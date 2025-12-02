@@ -362,7 +362,7 @@ function getPostById(PDO $pdo, $post_id) {
 }
 
 /**
- * Fetch user impact statistics
+ * Fetch AND calculate user impact statistics
  */
 function getUserImpactStats(PDO $pdo, $user_id) {
     $stmt = $pdo->prepare("

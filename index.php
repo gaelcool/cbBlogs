@@ -1,5 +1,4 @@
 <?php
-// Fetch the most recent blog post for the featured section
 require_once 'lib/common.php';
 $pdo = getPDO();
 $stmt = $pdo->query("SELECT id, title, author_name, created_at, content FROM post ORDER BY created_at DESC LIMIT 1");
