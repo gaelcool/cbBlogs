@@ -389,7 +389,7 @@ de versos que nacen del alma...',
      'Mirando hacia el cosmos infinito, nos damos cuenta de lo pequeños que somos. La ciencia ficción nos prepara para un futuro entre las estrellas...',
      'Ciencia Ficción',
      datetime('2024-11-25 12:45:00'),
-        'img/blog_media/stars_journey.jpg'),
+        'stars_journey.jpg'),
     
     ('Mundos de Fantasía', 
      'La magia en la literatura moderna',
@@ -397,7 +397,7 @@ de versos que nacen del alma...',
      'Los mundos fantásticos nos enseñan más sobre nuestra realidad de lo que imaginamos. La magia existe en cada página que leemos...',
      'Fantasía',
      datetime('2024-12-01 09:20:00'),
-     'img/blog_media/fantasy_world.jpg');
+     'fantasy_world.jpg');
 
 -- Comments showcasing community engagement
 INSERT INTO comment (created_at, user_id_C, grade, text, post_id)
