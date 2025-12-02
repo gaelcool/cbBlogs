@@ -101,7 +101,7 @@ unset($blog); // deshacer
                         
                         <?php if (!empty($blog['file_path'])): ?>
                             <div class="blog-image-container" style="display: flex; justify-content: center; margin: 1rem 0;">
-                                <img src="data/blog_media/<?php echo htmlEscape($blog['file_path']); ?>" 
+                                <img src="img/blog_media/<?php echo htmlEscape($blog['file_path']); ?>" 
                                      alt="Blog Image" 
                                      style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
                             </div>
