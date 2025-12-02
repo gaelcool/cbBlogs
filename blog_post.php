@@ -309,7 +309,7 @@ if (!$post_id || !is_numeric($post_id)) {
                 </header>
                 <div class="blog-image-container" style="display: flex; justify-content: center; margin: 1rem 0;">
                        <?php if (!empty($postImg['file_path'])): ?>
-                                <img src="data/blog_media/<?php echo htmlEscape($postImg['file_path']); ?>" 
+                                <img src="img/blog_media/<?php echo htmlEscape($postImg['file_path']); ?>" 
                                      alt="Blog Image" 
                                      style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
                             <?php endif; ?>
