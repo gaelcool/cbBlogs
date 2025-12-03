@@ -15,13 +15,12 @@ $total_blogs = countUserPosts($pdo, $_SESSION['usuario']);
 $impactStats = getUserImpactStats($pdo, $_SESSION['id_usr']);
 
 //check progress
-$progressPoints = getUserImpactStats($pdo, $_SESSION['user_contribution']);
-$unlockThreshold = 100;
-$progressPercent = min(100, ($currentPoints / $unlockThreshold) * 100);
-$stmt = $pdo->prepare("SELECT user_contributions FROM user WHERE id_usr = :uid");
-$stmt->execute([':uid' => $_SESSION['id_usr']]);
-$isUnlocked = $currentPoints >= $unlockThreshold;
-$pointsNeeded = max(0, $unlockThreshold - $currentPoints);
+$progressPoints = getUserPoints($pdo, $_SESSION['id_usr']);
+$progressPercent = min(100, $progressPoints); 
+
+// Calculate opacity: 0.1 at 0 points, 1.0 at 100 points
+$progressOpacity = 0.1 + (min($progressPoints, 100) / 100) * 0.9;
+$isUnlocked = $progressPoints >= 100;
 
 
 
@@ -99,11 +98,17 @@ if ($hour < 12) {
                 <h1><?php echo $greeting; ?>, <?php echo htmlEscape($_SESSION['nombre']); ?>!</h1>
                 <p class="hero-subtitle">Bienvenido al Hub Central de CbNoticias</p>
             </div>
-            <div class='progressBtn'>
-    <a href="<?php echo $isUnlocked ? 'secret.php' : 'javascript:void(0)'; ?>">
-        <span><?php echo $progressPercent; ?>%</span>
-    </a>
-        </div>
+                <!-- Progress Button -->
+            <?php if ($isUnlocked): ?>
+                <a href="secret.php" class="btn-progress" style="opacity: <?php echo $progressOpacity; ?>; cursor: pointer;">
+                    <span>🔓 Desbloqueado! (<?php echo $progressPoints; ?> puntos)</span>
+                </a>
+            <?php else: ?>
+                <div class="btn-progress" style="opacity: <?php echo $progressOpacity; ?>; cursor: not-allowed;">
+                    <span>🔒 <?php echo $progressPoints; ?>/100 puntos</span>
+                </div>
+            <?php endif; ?>
+
         </div>
 
         <!-- Hub Portals Grid -->

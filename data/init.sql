@@ -309,9 +309,9 @@ VALUES
     ('Admin', 'Administrador Principal', 'admin@cbblogs.com', 'admin123', CURRENT_TIMESTAMP, 5, 'General'),
     ('TestUser', 'Usuario de Prueba', 'test@cbblogs.com', 'test123', CURRENT_TIMESTAMP, 1, 'Ficción');
 
-INSERT INTO user (usuario, nombre, email, clave, fecha_registro, grade, genero_lit_fav)
+INSERT INTO user (usuario, nombre, email, clave, fecha_registro, grade, genero_lit_fav, user_contributions)
 VALUES
-    ('generico', 'Generico', 'generico@cbblogs.com', 'clave', CURRENT_TIMESTAMP, 3, 'General');
+    ('generico', 'Generico', 'generico@cbblogs.com', 'clave', CURRENT_TIMESTAMP, 3, 'General', 100 );
 
 -- 2. Insert Admin (Depends on User)
 INSERT INTO admin (usuario_id, nivel, puntos_contribucion)

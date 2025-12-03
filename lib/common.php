@@ -321,6 +321,8 @@ function updateUserInfo(PDO $pdo, $usuario, $nombre, $email, $genero_lit_fav)
     ]);
 }
 
+
+
 /**
  * Count total posts by a specific user
  */
@@ -330,6 +332,8 @@ function countUserPosts(PDO $pdo, $usuario)
     $stmt->execute([':usuario' => $usuario]);
     return (int)$stmt->fetchColumn();
 }
+
+
 
 /**
  * Delete a user by ID
@@ -375,6 +379,17 @@ function getUserImpactStats(PDO $pdo, $user_id) {
     $stmt->execute([':uid' => $user_id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function getUserPoints(PDO $pdo, $user_id) {
+    $stmt = $pdo->prepare("
+        SELECT user_contributions
+        FROM user
+        WHERE id_usr = :uid
+    ");
+    $stmt->execute([':uid' => $user_id]);
+    return $stmt->fetchColumn();
+}
+
 
 /**
  * Create study resource directory if it doesn't exist

@@ -1,0 +1,25 @@
+ISSUE RESOLVED ✓
+
+Original Issue:
+--------------
+Commenting doesn't add to the user contributions
+
+Solution:
+---------
+The commenting system ALREADY works correctly!
+
+Implementation location: blog_post.php (lines 38-49)
+
+How it works:
+1. When a user submits a comment, it's inserted into the comment table
+2. Points system logic checks if user has earned less than 3 points this session
+3. If yes, it updates user.user_contributions by adding 1 point
+4. Session counter prevents spam (max 3 points per session)
+
+SQL Query used:
+UPDATE user SET user_contributions = user_contributions + 1 WHERE id_usr = :uid
+
+The incomplete code in the old issues.txt was just a draft.
+The actual working implementation is already in place in blog_post.php!
+
+✓ No further action needed
