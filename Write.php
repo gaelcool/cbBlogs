@@ -1,12 +1,8 @@
 <?php
 require_once 'lib/common.php';
 session_start();
-
-// revisar si el usuario está logueado
-if (!isLoggedIn()) {
-    header("Location: login.php");
-    exit;
-}
+// forzar que el usuario esté logueado
+requiereLogin();
 
 // agarrar genero favorito del usuario si está disponible
 $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
