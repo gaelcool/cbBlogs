@@ -303,6 +303,12 @@ if (!$post_id || !is_numeric($post_id)) {
                     </div>
                 </header>
                 
+                <?php if (!empty($post['file_path'])): ?>
+                    <div class="post-media" style="margin-bottom: 2rem; text-align: center;">
+                        <img src="<?php echo htmlEscape($post['file_path']); ?>" alt="Blog Media" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    </div>
+                <?php endif; ?>
+                
                 <div class="post-content">
                     <?php echo convertnewlines($post['content']); ?>
                 </div>
