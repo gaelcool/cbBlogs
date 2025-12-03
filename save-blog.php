@@ -44,13 +44,31 @@ if (strlen($contenido) < 50) {
 $palabras = str_word_count($contenido);
 $tiempo_lectura = ceil($palabras / 200); // 200 palabras por minuto
 
+// Handle file upload
+$filePath = null;
+if (isset($_FILES['media']) && $_FILES['media']['error'] === UPLOAD_ERR_OK) {
+    $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    $filename = $_FILES['media']['name'];
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    
+    if (in_array($ext, $allowed)) {
+        $targetDir = 'data/blog_media/';
+        $newFilename = uniqid() . '_' . basename($filename);
+        $targetPath = $targetDir . $newFilename;
+        
+        if (move_uploaded_file($_FILES['media']['tmp_name'], $targetPath)) {
+            $filePath = $targetPath;
+        }
+    }
+}
+
 try {
     $pdo = getPDO();
     
     // Insertar blog en la base de datos
     $stmt = $pdo->prepare("
-        INSERT INTO post (title, subtitle, author_name, content, tag, created_at) 
-        VALUES (:titulo, :subtitulo, :autor, :contenido, :tag, CURRENT_TIMESTAMP)
+        INSERT INTO post (title, subtitle, author_name, content, tag, file_path, created_at) 
+        VALUES (:titulo, :subtitulo, :autor, :contenido, :tag, :file_path, CURRENT_TIMESTAMP)
     ");
     
     $result = $stmt->execute([
@@ -58,7 +76,8 @@ try {
         ':subtitulo' => $subtitulo,
         ':autor' => $autor,
         ':contenido' => $contenido,
-        ':tag' => $tag
+        ':tag' => $tag,
+        ':file_path' => $filePath
     ]);
 
     if ($result) {
