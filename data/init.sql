@@ -70,6 +70,7 @@ CREATE TABLE post (
     content TEXT NOT NULL,
     tag TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    file_path TEXT,
     FOREIGN KEY (author_name) REFERENCES user(usuario) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
