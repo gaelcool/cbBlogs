@@ -121,7 +121,7 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <script>
     function voteSuggestion(suggestionId) {
-        if (!confirm('¿Estás seguro de que quieres apoyar esta sugerencia?')) return;
+        if (!confirm)  return;
 
         fetch('vote_suggestion.php', {
             method: 'POST',

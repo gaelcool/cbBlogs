@@ -10,11 +10,11 @@
     --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.8);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    
+/*     
 
     --bg-gradient: linear-gradient(135deg, #E0F7FA 0%, #E8F5E9 100%);
     --header-gradient: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.4) 100%);
-    
+     */
 
     --header-height: 80px;
 }
@@ -69,6 +69,38 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-grayed {
+            background: rgb(88, 84, 84);
+            backdrop-filter: blur(40px  );
+            
+        }
+
+        .btn-primary:hover {
+            background: #E55A9B;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--text);
+        }
+
+    
+
 
 .preview-content {
     flex: 1;

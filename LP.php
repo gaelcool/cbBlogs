@@ -52,8 +52,10 @@ $trendingPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->query("SELECT COUNT(*) FROM suggestions WHERE status = 'pending'");
 $pendingSuggestions = $stmt->fetchColumn();
 
-// Time-based greeting
-$hour = date('G');
+// Get the current hour in 24‑hour format (0–23)
+$hour = (int)date('G');
+
+// Determine the appropriate greeting
 if ($hour < 12) {
     $greeting = "Buenos días";
 } elseif ($hour < 18) {
@@ -61,6 +63,7 @@ if ($hour < 12) {
 } else {
     $greeting = "Buenas noches";
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +78,7 @@ if ($hour < 12) {
     
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias</h2>
+            <h2> CbBlogs</h2>
         </div>
         <div class="nav-links">
             <a href="LP.php" class="active">Inicio</a>
@@ -235,7 +238,7 @@ if ($hour < 12) {
     <a href="us.php" class="help-button" title="Más Información">?</a>
 
     <footer class="footer">
-        &copy; 2025 CbNoticias. Suerte  
+        &copy; 2025 CbBlogs. Suerte  
         <div class="rotating-slogan">
             <p id="slogan-text">Comparte tus ideas</p>
         </div>

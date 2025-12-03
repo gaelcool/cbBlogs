@@ -47,6 +47,22 @@ if (!$currentStyle) {
     <link rel="stylesheet" href="css/editor.css">
     <!-- Precargar estilos de plantilla para vista previa -->
     <link rel="stylesheet" href="css/templates/frutiger_aero.css" id="template-style">
+    
+    <style>
+        /* Only target the preview card inside the preview frame so it fills available height */
+        #previewFrame .post-container { height: 100%; }
+        #previewFrame .post-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        /* Allow the content area to grow so header/footer remain sized naturally */
+        #previewFrame .post-card .post-content {
+            flex: 1 1 auto;
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
    
@@ -144,11 +160,7 @@ if (!$currentStyle) {
             </form>
         </div>
 
-        <!-- Panel Derecho: Vista Previa en Vivo -->
         <div class="preview-pane">
-            <div class="preview-header">
-                <span>Vista Previa en Vivo</span>
-            </div>
             <div id="previewFrame" class="preview-content">
                 <!-- Publicación de Muestra -->
                 <div class="post-container">

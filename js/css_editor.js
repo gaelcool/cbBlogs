@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalText = saveBtn.innerText;
         
         saveBtn.disabled = true;
-        saveBtn.innerText = 'Saving...';
+        saveBtn.innerText = 'guardando...';
         messageArea.style.display = 'none';
 
         fetch('save_blog_style.php', {
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             messageArea.style.display = 'block';
             messageArea.className = 'error-msg';
-            messageArea.innerText = 'Network error occurred';
+            messageArea.innerText = 'error de red';
             console.error(error);
         })
         .finally(() => {
