@@ -333,6 +333,12 @@ function countUserPosts(PDO $pdo, $usuario)
     return (int)$stmt->fetchColumn();
 }
 
+function countTotalPosts(PDO $pdo) {
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM post");
+    $stmt->execute();
+    return (int)$stmt->fetchColumn();
+}
+
 
 
 /**

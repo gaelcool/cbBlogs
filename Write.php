@@ -6,6 +6,12 @@ requiereLogin();
 
 // agarrar genero favorito del usuario si está disponible
 $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
+
+// Fetch user contributions points for conditional features
+$pdo = getPDO();
+$stmt = $pdo->prepare("SELECT user_contributions FROM user WHERE id_usr = :uid");
+$stmt->execute([':uid' => $_SESSION['id_usr']]);
+$user_contributions = $stmt->fetchColumn() ?: 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -97,6 +103,11 @@ $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
                 <div class="submit-section">
                     <a href="LP.php" class="btn back-btn">← Volver</a>
                     <button type="submit" class="btn submit-btn">📝 Publicar Blog</button>
+                    <?php if ($user_contributions >= 100): ?>
+                        <a href="WriteWitMedia.php" class="btn media-btn" title="Desbloqueado por tener 100+ puntos de contribución">
+                            Escribir con Media
+                        </a>
+                    <?php endif; ?>
                 </div>
             </form>
         </div>

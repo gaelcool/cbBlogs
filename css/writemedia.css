@@ -74,15 +74,6 @@ body {
     font-style: italic;
 }
 
-.nav-fishies {
-    width: 60px;
-    height: 60px;
-    background-image: url('../img/Fishies.gif');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-left: 1rem;
-}
 
 .nav {
     position: sticky;
@@ -212,6 +203,30 @@ body {
     text-align: center;
     animation: fallDown 0.8s ease-out forwards;
     opacity: 0; /* empieza invisible */
+    position: relative;
+    background: linear-gradient(
+        90deg,
+        #FF6B9D 0%,
+        #FFD700 25%,
+        #ddbe12 75%,
+        #FF6B9D 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fallDown 0.8s ease-out forwards, shimmer 3s linear infinite;
+}
+
+.write-form h1::before {
+    left: -40px;
+    top: 0;
+}
+
+.write-form h1::after {
+    right: -40px;
+    top: 0;
+    animation-delay: 1s;
 }
 
 @keyframes fallDown {
@@ -222,6 +237,26 @@ body {
     100% {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
     }
 }
 

@@ -31,7 +31,7 @@
 
 body {
     font-family: 'Segoe UI', 'Arial', sans-serif;
-    background: url("../img/tippedocean.webp") no-repeat center center fixed;
+    background: url("../img/newfishiesback.jpg") no-repeat center center fixed;
     background-size: cover;
     background-color: transparent;
     backdrop-filter: blur(3px);
@@ -345,6 +345,23 @@ body {
 .back-btn:hover {
     background: #FFA0B4;
     transform: translateY(-2px);
+}
+
+.media-btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    min-width: 200px;
+    background: linear-gradient(135deg, #FFA0B4 0%, #FFA500 100%);
+    color: #333;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    margin-left: 1rem;
+}
+
+.media-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+    background: linear-gradient(135deg, #FFA0B4 0%, #FFD700 100%);
 }
 
 /* diseño responsivo */

@@ -91,18 +91,15 @@ $currentImg = "img/blog_media/default.jpg";
                     <div class="form-group">
                         <label for="bgUpload">Subir Nuevo Fondo (Máx 2MB)</label>
                         <input type="file" id="bgUpload" name="file_path" accept=".jpg,.jpeg,.png,.webp">
-                        <small>Subir una nueva imagen, reemplaza la actual.</small>
                     </div>
                 </div>
 
                  <div class="form-group">
-                        <label>Fondo Actual</label>
+             
                         <div id="currentBgDisplay" class="bg-preview-box">
                             <?php if (!empty($currentImg['file_path'])): ?>
                                 <img src="img/blog_media/<?php echo htmlEscape($currentImg['file_path']); ?>" alt="Current Background">
                                 <span class="bg-name">Imagen Personalizada Subida</span>
-                            <?php else: ?>
-                                <span class="bg-name">Usando nada</span>
                             <?php endif; ?>
                         </div>
                     </div>

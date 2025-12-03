@@ -71,8 +71,6 @@ CREATE TABLE post (
     tag TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     file_path TEXT,
-    user_contributions INTEGER NOT NULL,
-    FOREIGN KEY (user_contributions) REFERENCES user(user_contributions) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (author_name) REFERENCES user(usuario) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -337,3 +335,136 @@ VALUES (
     'Admin',
     'Este es un comentario de prueba del administrador.'
 );
+
+-- ================================================
+-- ADDITIONAL EXAMPLE DATA - Demonstrating Features
+-- ================================================
+
+-- Example Users with Various Contribution Levels
+INSERT INTO user (usuario, nombre, email, clave, fecha_registro, grade, genero_lit_fav, user_contributions)
+VALUES
+    -- Beginner user with low contributions
+    ('maria_escritora', 'MARÍA GONZÁLEZ', 'maria@cbblogs.com', 'maria123', datetime('2024-01-15 10:30:00'), 2, 'Romance', 25),
+    
+    -- Intermediate user approaching template unlock
+    ('carlos_poeta', 'CARLOS RAMÍREZ', 'carlos@cbblogs.com', 'carlos123', datetime('2024-03-20 14:45:00'), 3, 'Poesía', 45),
+    
+    -- Premium user with 100+ points (can access WriteWitMedia)
+    ('ana_blogger', 'ANA MARTÍNEZ', 'ana@cbblogs.com', 'ana123', datetime('2023-11-05 09:15:00'), 4, 'Ciencia Ficción', 120),
+    
+    -- Elite user with max contributions
+    ('jorge_escritor', 'JORGE LÓPEZ', 'jorge@cbblogs.com', 'jorge123', datetime('2023-08-10 16:20:00'), 5, 'Fantasía', 165);
+
+-- User Blog Style Customizations
+INSERT INTO user_blog_style (user_id, template_name, background_image, font_family, title_size, body_size)
+VALUES
+    (3, 'pink_classic', 'see.jpg', 'Georgia, serif', '2.8rem', '1.2rem'),
+    (6, 'frutiger_aero', NULL, 'Segoe UI, Arial, sans-serif', '2.5rem', '1.1rem');
+
+-- Blog Posts from Various Users
+INSERT INTO post (title, subtitle, author_name, content, tag, created_at, file_path)
+VALUES
+    ('El Poder de la Lectura', 
+     'Cómo los libros transforman vidas',
+     'maria_escritora',
+     'La lectura nos transporta a mundos nuevos y nos permite vivir mil vidas diferentes. Cada libro es una aventura que espera ser descubierta...',
+     'Romance',
+     datetime('2024-11-15 10:00:00'),
+     NULL),
+    
+    ('Versos del Alma', 
+     'Poemas sobre la naturaleza humana',
+     'carlos_poeta',
+     'En el silencio de la noche,
+las palabras encuentran su voz,
+y el corazón late al ritmo
+de versos que nacen del alma...',
+     'Poesía',
+     datetime('2024-11-20 15:30:00'),
+     NULL),
+    
+    ('Viaje a las Estrellas', 
+     'Una reflexión sobre la exploración espacial',
+     'ana_blogger',
+     'Mirando hacia el cosmos infinito, nos damos cuenta de lo pequeños que somos. La ciencia ficción nos prepara para un futuro entre las estrellas...',
+     'Ciencia Ficción',
+     datetime('2024-11-25 12:45:00'),
+     'uploads/stars_journey.jpg'),
+    
+    ('Mundos de Fantasía', 
+     'La magia en la literatura moderna',
+     'jorge_escritor',
+     'Los mundos fantásticos nos enseñan más sobre nuestra realidad de lo que imaginamos. La magia existe en cada página que leemos...',
+     'Fantasía',
+     datetime('2024-12-01 09:20:00'),
+     'uploads/fantasy_world.png');
+
+-- Comments showcasing community engagement
+INSERT INTO comment (created_at, user_id_C, grade, text, post_id)
+VALUES
+    (datetime('2024-11-15 11:30:00'), 'carlos_poeta', 3, '¡Excelente reflexión! La lectura realmente cambia vidas.', 2),
+    (datetime('2024-11-15 14:20:00'), 'ana_blogger', 4, 'Me encantó este artículo. Muy inspirador.', 2),
+    (datetime('2024-11-20 16:45:00'), 'maria_escritora', 2, 'Tus poemas siempre me conmueven. ¡Bellísimo!', 3),
+    (datetime('2024-11-25 13:30:00'), 'jorge_escritor', 5, 'Como amante de la ciencia ficción, aprecio mucho tu perspectiva.', 4),
+    (datetime('2024-12-01 10:15:00'), 'ana_blogger', 4, '¡La fantasía es mi género favorito también! Gran post.', 5),
+    (datetime('2024-12-01 18:45:00'), 'Admin', 5, 'Contenido de alta calidad. Sigue así.', 5);
+
+-- Study Resources from different users
+INSERT INTO study_resources (title, description, subject, grade, resource_type, text_content, uploader_id, is_approved, approved_by, view_count, helpful_votes)
+VALUES
+    ('Guía de Gramática Española',
+     'Reglas esenciales de gramática para escritores',
+     'Español',
+     3,
+     'text',
+     'Esta guía cubre los aspectos fundamentales de la gramática española...',
+     5,
+     1,
+     1,
+     45,
+     12),
+    
+    ('Técnicas de Escritura Creativa',
+     'Métodos para mejorar tu escritura',
+     'Literatura',
+     4,
+     'text',
+     'La escritura creativa requiere práctica y técnica. Aquí aprenderás...',
+     6,
+     1,
+     1,
+     78,
+     23);
+
+-- Suggestions from the community
+INSERT INTO suggestions (title, description, category, is_anonymous, author_id, status, support_count)
+VALUES
+    ('Agregar Editor de Markdown',
+     'Sería útil tener un editor de markdown para formatear mejor los posts.',
+     'feature',
+     0,
+     5,
+     'under_review',
+     15),
+    
+    ('Modo Oscuro',
+     'Implementar un modo oscuro para la lectura nocturna.',
+     'feature',
+     0,
+     6,
+     'pending',
+     28);
+
+-- User Contributions tracking
+INSERT INTO user_contributions (user_id, contribution_type, contribution_id)
+VALUES
+    (4, 'blog', 2),
+    (5, 'blog', 3),
+    (6, 'blog', 4),
+    (7, 'blog', 5),
+    (4, 'comment', 2),
+    (5, 'comment', 3),
+    (6, 'comment', 4),
+    (7, 'resource', 1),
+    (6, 'resource', 2);
+

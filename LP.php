@@ -9,7 +9,9 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $pdo = getPDO();
-$total_blogs = countUserPosts($pdo, $_SESSION['usuario']);
+$user_blogs  = countUserPosts($pdo, $_SESSION['usuario']);
+$total_blogs = countTotalPosts($pdo);
+
 
 // Get Impact Stats
 $impactStats = getUserImpactStats($pdo, $_SESSION['id_usr']);
@@ -121,17 +123,20 @@ if ($hour < 12) {
                     Comparte tus ideas, experiencias y conocimientos con la comunidad.
                 </p>
                 <div class="portal-stats">
-                    <span class="stat-badge"><?php echo $total_blogs; ?> publicados</span>
+                    <span class="stat-badge"><?php echo $user_blogs; ?> publicados</span>
                 </div>
                 <a href="Write.php" class="portal-btn btn btn-primary">Escribir Blog</a>
             </div>
 
             <div class="portal-card">
                 <div class="portal-icon section-icon"></div>
-                <h3 class="portal-title">Biblioteca</h3>
+                <h3 class="portal-title">Conecta</h3>
                 <p class="portal-description">
-                    Descubre artículos fascinantes de tus compañeros.
+                    Descubre artículos personales de tus compañeros.
                 </p>
+                <div class="portal-stats">
+                    <span class="stat-badge"><?php echo $total_blogs; ?> publicados</span>
+                </div>
                 <a href="Read.php" class="portal-btn btn">Explorar Blogs</a>
             </div>
  </section>
@@ -163,7 +168,7 @@ if ($hour < 12) {
             <section class="bottom-lanes">
             <div class="portal-card">
                 <div class="portal-icon section-icon-study"></div>
-                <h3 class="portal-title">Sala de Estudio</h3>
+                <h3 class="portal-title">Biblioteca</h3>
                 <p class="portal-description">
                     Comparte y descarga material de estudio.
                 </p>

@@ -12,6 +12,22 @@
 .account-header {
     text-align: left;
     margin-bottom: 3rem;
+    animation: fadeInDown 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.account-header h1 {
+    background: linear-gradient(
+        90deg,
+        #FF6B9D 0%,
+        #4CB8C4 50%,
+        #FF6B9D 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
 }
 body {
     font-family: 'Segoe UI', 'Arial', sans-serif; 
@@ -219,7 +235,9 @@ ey {
     gap: 2rem;
     margin-bottom: 2rem;
     justify-content: space-between;
-  
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
 }
 
 .info-card-personal,
@@ -227,6 +245,12 @@ ey {
 .edit-section {
     flex: 1;
     min-width: 250px;
+}
+
+.edit-section {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.7s;
+    opacity: 0;
 }
 
 
@@ -277,12 +301,29 @@ footer {
     margin-bottom: 2rem;
 }
 
+.stats-grid .stat-card {
+    animation: slideUpFade 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.stats-grid .stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stats-grid .stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stats-grid .stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stats-grid .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
 .stat-card {    
     background: var(--primary);
     color: var(--white);
     padding: 0rem;
     border-radius: 8px;
     text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(76, 184, 196, 0.4);
 }
 
 .stat-value {
@@ -358,6 +399,49 @@ footer {
 .grade-4 { background: #FFA0B4; color: white; }
 .grade-5 { background: #FF69B4; color: white; }
 .grade-6 { background: #E55A9B; color: white; }
+
+/* Animations */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
 
 @media  (max-width: 770px) {
   .form {

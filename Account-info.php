@@ -29,10 +29,10 @@ $points = $stmt->fetchColumn() ?: 0;
 // Define unlocks
 $unlocks = [
     30 => ['name' => 'Template Desbloqueado', 'icon' => ''],
-    60 => ['name' => 'Logo Dorado', 'icon' => '👑'],
-    80 => ['name' => 'Ayudante', 'icon' => '💛'],
-    100 => ['name' => 'Insignia', 'icon' => '🏅'],
-    150 => ['name' => 'Solicitar Mod', 'icon' => '🛡']
+    60 => ['name' => 'Logo Dorado', 'icon' => '♕'],
+    80 => ['name' => 'Ayudante', 'icon' => '♡'],
+    100 => ['name' => 'Insignia', 'icon' => '✈'],
+    150 => ['name' => 'Solicitar Mod', 'icon' => '𓆩♡𓆪']
 ];
 
 // Calculate next unlock
@@ -70,6 +70,39 @@ if ($points >= 150) $progressPercent = 100;
         }
         .style-info h3 { margin: 0 0 0.5rem 0; color: var(--primary); }
         .style-info p { margin: 0; opacity: 0.8; }
+        
+        /* Dropdown toggle styles */
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            padding: 0.5rem 0;
+        }
+        
+        .dropdown-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+        
+        .dropdown-icon.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        
+        .dropdown-content.expanded {
+            max-height: 1000px;
+            opacity: 1;
+            transition: max-height 0.5s ease-in, opacity 0.4s ease-in;
+        }
     </style>
 </head>
 
@@ -118,26 +151,32 @@ if ($points >= 150) $progressPercent = 100;
         </div>
 
         <!-- Points & Progress Section -->
-        <div class="style-card" style="display:block; margin-bottom: 2rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div class="style-card" style="display:block; margin-bottom: 2rem; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.6s; opacity: 0;">
+            <div class="dropdown-header" onclick="toggleDropdown('pointsDropdown')">
                 <h3 style="margin:0;"> Puntos de Contribución: <?php echo $points; ?></h3>
-                <span>Siguiente: <?php echo $nextUnlockName; ?> (<?php echo $nextUnlockPoints; ?> pts)</span>
+                <span class="dropdown-icon" id="pointsDropdownIcon">▼</span>
             </div>
             
-            <div style="background:rgba(255,255,255,0.1); border-radius:10px; height:20px; width:100%; overflow:hidden;">
-                <div style="background:var(--primary); height:100%; width:<?php echo $progressPercent; ?>%; transition: width 0.5s ease;"></div>
-            </div>
+            <div class="dropdown-content" id="pointsDropdown">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin:1rem 0;">
+                    <span>Siguiente: <?php echo $nextUnlockName; ?> (<?php echo $nextUnlockPoints; ?> pts)</span>
+                </div>
+                
+                <div style="background:rgba(255,255,255,0.1); border-radius:10px; height:20px; width:100%; overflow:hidden;">
+                    <div style="background:var(--primary); height:100%; width:<?php echo $progressPercent; ?>%; transition: width 0.5s ease;"></div>
+                </div>
 
-            <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-                <?php foreach ($unlocks as $reqPoints => $data): ?>
-                    <div style="background: <?php echo $points >= $reqPoints ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'; ?>; 
-                                padding: 0.5rem 1rem; border-radius: 8px; 
-                                opacity: <?php echo $points >= $reqPoints ? '1' : '0.5'; ?>;
-                                border: 1px solid <?php echo $points >= $reqPoints ? 'var(--primary)' : 'transparent'; ?>;">
-                        <?php echo $data['icon']; ?> <?php echo $data['name']; ?> 
-                        <span style="font-size:0.8em; opacity:0.7;">(<?php echo $reqPoints; ?> pts)</span>
-                    </div>
-                <?php endforeach; ?>
+                <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                    <?php foreach ($unlocks as $reqPoints => $data): ?>
+                        <div style="background: <?php echo $points >= $reqPoints ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'; ?>; 
+                                    padding: 0.5rem 1rem; border-radius: 8px; 
+                                    opacity: <?php echo $points >= $reqPoints ? '1' : '0.5'; ?>;
+                                    border: 1px solid <?php echo $points >= $reqPoints ? 'var(--primary)' : 'transparent'; ?>;">
+                            <?php echo $data['icon']; ?> <?php echo $data['name']; ?> 
+                            <span style="font-size:0.8em; opacity:0.7;">(<?php echo $reqPoints; ?> pts)</span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
 
@@ -168,23 +207,33 @@ if ($points >= 150) $progressPercent = 100;
                     <span class="info-label">Nivel:</span>
                     <span class="info-value">
                         <span class="grade-indicator grade-<?php echo $_SESSION['grade'] ?? 1; ?>">
-                            Nivel <?php echo $_SESSION['grade'] ?? 1; ?>
+                            Grado <?php echo $_SESSION['grade'] ?? 1; ?>
                         </span>
                     </span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Usuario numero:</span>
+                    <span class="info-value"><?php echo $_SESSION['id_usr']; ?></span>
                 </div>
             </div>
         </div>
 
-        <div class="style-card">
-            <div class="style-info">
-                <h3>🎨 Apariencia del Blog</h3>
-                <p>Tema actual: <strong><?php echo $currentTemplate; ?></strong></p>
+        <div class="style-card" style="display:block; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.8s; opacity: 0;">
+            <div class="dropdown-header" onclick="toggleDropdown('styleDropdown')">
+                <h3 style="margin:0;"> Apariencia del Blog</h3>
+                <span class="dropdown-icon" id="styleDropdownIcon">▼</span>
             </div>
-            <a href="edit_blog_style.php" class="btn">Personalizar Estilo</a>
+            
+            <div class="dropdown-content" id="styleDropdown">
+                <div style="margin-top: 1rem;">
+                    <p>Tema actual: <strong><?php echo $currentTemplate; ?></strong></p>
+                    <a href="edit_blog_style.php" class="btn" style="margin-top: 1rem;">Personalizar Estilo</a>
+                </div>
+            </div>
         </div>
 
         <div class="edit-section">
-            <h3>✏️ Editar Información</h3>
+            <h3> Editar Información</h3>
             <p style="margin-bottom: 1rem;">Actualiza tus datos personales y preferencias</p>
             <button class="btn" onclick="window.location.href='updateAcc.php'" id="editBtn">Editar Información</button>
         </div>
@@ -193,5 +242,20 @@ if ($points >= 150) $progressPercent = 100;
     <footer class="footer">    
         &copy; 2025 CbNoticias. Suerte 
     </footer>
+    
+    <script>
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const icon = document.getElementById(dropdownId + 'Icon');
+            
+            if (dropdown.classList.contains('expanded')) {
+                dropdown.classList.remove('expanded');
+                icon.classList.remove('expanded');
+            } else {
+                dropdown.classList.add('expanded');
+                icon.classList.add('expanded');
+            }
+        }
+    </script>
 </body>
 </html>
