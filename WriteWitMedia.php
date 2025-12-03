@@ -11,8 +11,13 @@ if ($userPoints < 100) {
     header("Location: LP.php");
     exit;
 }
-// agarrar genero favorito del usuario si está disponible
+// Obtener info del usuario
 $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
+$userContributions = $_SESSION['user_contributions'] ?? 0;
+$user_id = $_SESSION['id_usr'];
+// obtener la imagen default del post
+$currentImg = "img/blog_media/default.jpg";
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,7 +55,6 @@ $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
             <h1> Escribir Nuevo Blog</h1> <div class="iconOG"></div>
             
             <form action="save-blog.php" method="POST" id="blogForm" enctype="multipart/form-data">
-                <input type="file" name="media" id="mediaInput" accept="image/*" style="display:none;">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="titulo">Título del Blog</label>
@@ -81,11 +85,28 @@ $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
                     <input type="text" name="subtitulo" id="subtitulo" placeholder="Un subtítulo descriptivo" maxlength="300">
                     <div class="char-counter" id="subtituloCounter">0/300</div>
                 </div>
-                
-                <div class="form-group">
-                    <div class = "media-container">
-                        <button class = 'type-option' onclick="selectType('file')">Imagen</button>
+                <div class="style-section">
+                    <h4>Fondo</h4>
+
+                    <div class="form-group">
+                        <label for="bgUpload">Subir Nuevo Fondo (Máx 2MB)</label>
+                        <input type="file" id="bgUpload" name="file_path" accept=".jpg,.jpeg,.png,.webp">
+                        <small>Subir una nueva imagen, reemplaza la actual.</small>
                     </div>
+                </div>
+
+                 <div class="form-group">
+                        <label>Fondo Actual</label>
+                        <div id="currentBgDisplay" class="bg-preview-box">
+                            <?php if (!empty($currentImg['file_path'])): ?>
+                                <img src="img/blog_media/<?php echo htmlEscape($currentImg['file_path']); ?>" alt="Current Background">
+                                <span class="bg-name">Imagen Personalizada Subida</span>
+                            <?php else: ?>
+                                <span class="bg-name">Usando nada</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <div class="form-group">
                         <label for="contenido">Contenido del Blog</label>
                         <textarea name="contenido" id="contenido" placeholder="Escribe tu blog aquí..." required></textarea>
                     </div>
@@ -152,25 +173,6 @@ $genero_fav = $_SESSION['genero_lit_fav'] ?? 'General';
         
         document.getElementById('contenido').addEventListener('input', updateStats);
 
-        // Media preview logic
-        document.getElementById('mediaInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const preview = document.getElementById('mediaPreview');
-            
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" style="max-width: 100%; max-height: 400px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                                         <div style="margin-top: 5px;"><button type="button" onclick="removeMedia()" style="color: red; background: none; border: none; cursor: pointer; text-decoration: underline;">Eliminar imagen</button></div>`;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function removeMedia() {
-            document.getElementById('mediaInput').value = '';
-            document.getElementById('mediaPreview').innerHTML = '';
-        }
         
         // validación del formulario
         document.getElementById('blogForm').addEventListener('submit', function(e) {

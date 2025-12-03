@@ -57,6 +57,11 @@ if (!$post_id || !is_numeric($post_id)) {
             }
         }
         
+
+        $postImg = $pdo->prepare("SELECT file_path FROM post WHERE id = :pid");
+        $postImg->execute([':pid' => $post_id]);
+        $postImg = $postImg->fetch(PDO::FETCH_ASSOC);
+
         // Fetch Comments
         $stmt = $pdo->prepare("
             SELECT c.*, u.nombre as commenter_name 
@@ -278,7 +283,7 @@ if (!$post_id || !is_numeric($post_id)) {
     </nav>
 
     <div class="post-container">
-        <a href="Read.php" class="back-link">← Back to Blogs</a>
+       
         
         <?php if (isset($error)): ?>
             <div class="error-message">
@@ -302,12 +307,15 @@ if (!$post_id || !is_numeric($post_id)) {
                         <?php endif; ?>
                     </div>
                 </header>
-                
-                <?php if (!empty($post['file_path'])): ?>
-                    <div class="post-media" style="margin-bottom: 2rem; text-align: center;">
-                        <img src="<?php echo htmlEscape($post['file_path']); ?>" alt="Blog Media" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    </div>
-                <?php endif; ?>
+                <div class="blog-image-container" style="display: flex; justify-content: center; margin: 1rem 0;">
+                       <?php if (!empty($postImg['file_path'])): ?>
+                                <img src="data/blog_media/<?php echo htmlEscape($postImg['file_path']); ?>" 
+                                     alt="Blog Image" 
+                                     style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
+                            <?php endif; ?>
+                            </div>
+           
+         
                 
                 <div class="post-content">
                     <?php echo convertnewlines($post['content']); ?>
@@ -331,7 +339,7 @@ if (!$post_id || !is_numeric($post_id)) {
                         <span style="font-size: 0.8rem; margin-left: 1rem; opacity: 0.7;">(Ganarás 1 punto, máx 3 por sesión)</span>
                     </form>
                 </div>
-
+                <a href="Read.php" class="back-link">← Back to Blogs</a>
                 <!-- Comments List -->
                 <div class="comments-list">
                     <?php if (empty($comments)): ?>

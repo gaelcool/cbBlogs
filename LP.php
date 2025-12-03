@@ -100,7 +100,7 @@ if ($hour < 12) {
             </div>
                 <!-- Progress Button -->
             <?php if ($isUnlocked): ?>
-                <a href="secret.php" class="btn-progress" style="opacity: <?php echo $progressOpacity; ?>; cursor: pointer;">
+                <a href="WriteWitMedia.php" class="btn-progress" style="opacity: <?php echo $progressOpacity; ?>; cursor: pointer;">
                     <span>🔓 Desbloqueado! (<?php echo $progressPoints; ?> puntos)</span>
                 </a>
             <?php else: ?>

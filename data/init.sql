@@ -71,6 +71,8 @@ CREATE TABLE post (
     tag TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     file_path TEXT,
+    user_contributions INTEGER NOT NULL,
+    FOREIGN KEY (user_contributions) REFERENCES user(user_contributions) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (author_name) REFERENCES user(usuario) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

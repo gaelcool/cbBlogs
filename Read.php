@@ -99,6 +99,14 @@ unset($blog); // deshacer
                             <span class="blog-tag"><?php echo htmlEscape($blog['tag']); ?></span>
                         </div>
                         
+                        <?php if (!empty($blog['file_path'])): ?>
+                            <div class="blog-image-container" style="display: flex; justify-content: center; margin: 1rem 0;">
+                                <img src="data/blog_media/<?php echo htmlEscape($blog['file_path']); ?>" 
+                                     alt="Blog Image" 
+                                     style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="blog-meta">
                             <span class="blog-author">👤 <?php echo htmlEscape($blog['autor']); ?></span>
                             <span class="blog-date">📅 <?php echo TraduceSQLfecha($blog['fecha_creacion']); ?></span>

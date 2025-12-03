@@ -46,18 +46,24 @@ $tiempo_lectura = ceil($palabras / 200); // 200 palabras por minuto
 
 // Handle file upload
 $filePath = null;
-if (isset($_FILES['media']) && $_FILES['media']['error'] === UPLOAD_ERR_OK) {
+if (isset($_FILES['file_path']) && $_FILES['file_path']['error'] === UPLOAD_ERR_OK) {
     $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-    $filename = $_FILES['media']['name'];
+    $filename = $_FILES['file_path']['name'];
     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
     
     if (in_array($ext, $allowed)) {
         $targetDir = 'data/blog_media/';
+        // Create directory if it doesn't exist
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+        
         $newFilename = uniqid() . '_' . basename($filename);
         $targetPath = $targetDir . $newFilename;
         
-        if (move_uploaded_file($_FILES['media']['tmp_name'], $targetPath)) {
-            $filePath = $targetPath;
+        if (move_uploaded_file($_FILES['file_path']['tmp_name'], $targetPath)) {
+            // Save only filename, Read.php prepends 'data/blog_media/'
+            $filePath = $newFilename;
         }
     }
 }

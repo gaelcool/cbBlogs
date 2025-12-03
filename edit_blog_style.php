@@ -3,10 +3,10 @@ require_once 'lib/common.php';
 session_start();
 requiereLogin();
 
-// Get current user's style preferences
+// Obtener las preferencias de estilo del usuario actual
 $pdo = getPDO();
 
-// Fallback: If id_usr is missing from session but user is logged in, fetch it
+// Respaldo: Si falta id_usr en la sesión pero el usuario ha iniciado sesión, obtenerlo
 if (!isset($_SESSION['id_usr']) && isset($_SESSION['usuario'])) {
     $stmtUser = $pdo->prepare("SELECT id_usr FROM user WHERE usuario = :usuario");
     $stmtUser->execute([':usuario' => $_SESSION['usuario']]);
@@ -14,18 +14,18 @@ if (!isset($_SESSION['id_usr']) && isset($_SESSION['usuario'])) {
     if ($userRow) {
         $_SESSION['id_usr'] = $userRow['id_usr'];
     } else {
-        // Should not happen if logged in, but safety first
+        // No debería suceder si ha iniciado sesión, pero la seguridad es primero
         header('Location: logout.php');
         exit();
     }
 }
 
-$user_id = $_SESSION['id_usr'] ?? 0; // Default to 0 or handle error if still missing
+$user_id = $_SESSION['id_usr'] ?? 0; // Predeterminado a 0 o manejar error si aún falta
 $stmt = $pdo->prepare("SELECT * FROM user_blog_style WHERE user_id = :user_id");
 $stmt->execute([':user_id' => $user_id]);
 $currentStyle = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Set defaults if no style exists
+// Establecer valores predeterminados si no existe estilo
 if (!$currentStyle) {
     $currentStyle = [
         'template_name' => 'frutiger_aero',
@@ -43,21 +43,26 @@ if (!$currentStyle) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalizar Estilo del Blog - CbNoticias</title>
-    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/editor.css">
     <!-- Precargar estilos de plantilla para vista previa -->
     <link rel="stylesheet" href="css/templates/frutiger_aero.css" id="template-style">
 </head>
 <body>
+   
     <nav class="nav">
         <div class='logo'>
-            <h2>CbNoticias</h2>
+            <h2> CbNoticias</h2>
         </div>
         <div class="nav-links">
-            <a href="Read.php">← Volver a Blogs</a>
-            <span class="nav-title">🎨 Editor de Estilos</span>
+            <a href="LP.php">Inicio</a>
+            <a href="Read.php">Leer Blogs</a>
+            <a href="Write.php">Escribir</a>
+            <a href="Account-info.php">Mi Cuenta</a>
+            <a href="logout.php">Cerrar Sesión</a>
         </div>
         <div class="user-display">
+            <span class="user-greeting">Hola,</span>
             <span class="user-name"><?php echo htmlEscape($_SESSION['nombre']); ?></span>
         </div>
     </nav>

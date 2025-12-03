@@ -250,7 +250,7 @@ function fetchAllusuarios() {
 function fetchAllPosts() {
     $pdo = getPDO();
     $query = $pdo->query('
-        SELECT id, title, subtitle, author_name, content, created_at, tag
+        SELECT id, title, subtitle, author_name, content, created_at, tag, file_path
         FROM post
         ORDER BY created_at DESC
     ');
