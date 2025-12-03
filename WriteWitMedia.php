@@ -25,7 +25,7 @@ $currentImg = "img/blog_media/default.jpg";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escribir Blog - CbNoticias</title>
-    <link rel="stylesheet" href="css/write.css">
+    <link rel="stylesheet" href="css/writemedia.css">
 </head>
 <body>
     <nav class="nav">
