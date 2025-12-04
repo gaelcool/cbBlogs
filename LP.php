@@ -86,6 +86,9 @@ if ($hour < 12) {
             <span class="user-greeting">Hola,</span>
             <span class="user-name"><?php echo htmlEscape($_SESSION['nombre']); ?></span>
         </div>
+        <button id="hamButton" class="hambtn" aria-label="Toggle menu">
+      &#9776;
+    </button>
     </nav>
 
     <div class="landing-container">
@@ -272,6 +275,90 @@ if ($hour < 12) {
                 }, index * 50);
             });
         });
+
+
+        
+document.addEventListener('DOMContentLoaded', function() {
+    const hamButton = document.getElementById('hamButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    
+    if (!hamButton || !mobileMenu || !menuBackdrop) {
+        console.warn('Mobile menu elements not found');
+        return;
+    }
+    
+    // Toggle menu function
+    function toggleMenu() {
+        const isOpen = mobileMenu.classList.contains('open');
+        
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    }
+    
+    // Open menu
+    function openMenu() {
+        mobileMenu.classList.add('open');
+        menuBackdrop.classList.add('active');
+        hamButton.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    // Close menu
+    function closeMenu() {
+        mobileMenu.classList.remove('open');
+        menuBackdrop.classList.remove('active');
+        hamButton.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    // Hamburger button click
+    hamButton.addEventListener('click', toggleMenu);
+    
+    // Backdrop click - close menu
+    menuBackdrop.addEventListener('click', closeMenu);
+    
+    // Close menu when clicking a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Small delay for better UX
+            setTimeout(closeMenu, 150);
+        });
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+            closeMenu();
+        }
+    });
+    
+    // Handle window resize - close menu if resized to desktop
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 768 && mobileMenu.classList.contains('open')) {
+                closeMenu();
+            }
+        }, 250);
+    });
+    
+    // Prevent body scroll when menu is open (iOS fix)
+    let scrollPosition = 0;
+    
+    mobileMenu.addEventListener('touchmove', function(e) {
+        if (mobileMenu.scrollHeight > mobileMenu.clientHeight) {
+            // Allow scroll within menu
+            return;
+        }
+        e.preventDefault();
+    }, { passive: false });
+});
     </script>
 </body>
 </html>

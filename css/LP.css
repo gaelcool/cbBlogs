@@ -61,6 +61,8 @@ body {
   z-index: 1000;
 }
 
+
+
 .rotating-slogan p {
   margin: 0;
   color: var(--accent);
@@ -264,7 +266,26 @@ body {
     box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
     flex-shrink: 0;
     transition: all 0.3s ease;
+    margin-right: 100px;
 }
+
+.hambtn {
+font-size: 32px;
+cursor: pointer;
+background: transparent;
+border: none;
+color: var(--accent);
+z-index: 1300;
+pointer-events: auto;
+padding: 10px;
+transition: transform .2s ease;
+}
+
+
+.hambtn:hover {
+transform: scale(1.15);
+}
+
 
 .user-display:hover {
     box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
