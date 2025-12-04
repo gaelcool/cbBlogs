@@ -445,17 +445,89 @@ footer {
     width: 100%;
 }
 @media (max-width: 768px) {
-    .top-lanes, .bottom-lanes {
-        grid-template-columns: 1fr;
+  .nav {
+        justify-content: center;
+        padding: 1rem;
+        position: relative;
     }
-    .nav-links {
-        opacity: 0;
-    }
-    .nav {
-        justify-content: center; /* Centra todo el contenido */
-    }
+    
     .logo {
-        justify-items: center;
+        text-align: center;
+        flex-grow: 0;
+        order: 0;
+    }
+    
+    /* Hide desktop nav links and user display */
+    .nav .nav-links,
+    .nav .user-display {
+        display: none;
+    }
+    
+    /* Adjust main content spacing */
+    .landing-container,
+    .read-container,
+    .write-container,
+    .democracy-container,
+    .account-container {
+        padding: 1rem;
+        padding-top: 90px; /* Account for fixed nav */
+    }
+    
+    /* Hero sections */
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+    
+    .hero-section h1,
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    /* Portal cards */
+    .portal-card,
+    .blog-card,
+    .suggestion-card {
+        padding: 1.5rem;
+    }
+    
+    /* Stats grids */
+    .stats-grid,
+    .impact-stats,
+    .hub-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* Buttons */
+    .action-buttons,
+    .cta-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+    }
+    
+    /* Footer adjustments */
+    .rotating-slogan {
+        bottom: 0.5rem;
+        right: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .rotating-slogan p {
+        font-size: 0.9rem;
+    }
+    
+    /* Help button */
+    .help-button {
+        bottom: 1rem;
+        left: 1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
     }
 }
 
