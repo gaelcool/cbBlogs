@@ -258,7 +258,6 @@ if ($hour < 12) {
 
         setInterval(rotateSlogan, 3000);
         
-        // Entrance animations
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.portal-card, .stat-card, .trending-card, .change-card');
             
