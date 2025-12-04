@@ -189,7 +189,6 @@ body {
     align-items: center;
     padding: 1rem 2rem;
     background:transparent;
-  
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -201,7 +200,7 @@ body {
     font-weight: bold;
     color: var(--accent);
     font-style: italic;
-    flex-shrink: 0;
+    display: flex;
     cursor: pointer;
 }
 
@@ -218,6 +217,7 @@ body {
     gap: 2rem;
     align-items: center;
     flex-grow: 1;
+    opacity: 1;
     justify-content: center;
 }
 
@@ -444,10 +444,18 @@ footer {
     gap: 2rem;
     width: 100%;
 }
-
 @media (max-width: 768px) {
     .top-lanes, .bottom-lanes {
         grid-template-columns: 1fr;
+    }
+    .nav-links {
+        opacity: 0;
+    }
+    .nav {
+        justify-content: center; /* Centra todo el contenido */
+    }
+    .logo {
+        justify-items: center;
     }
 }
 

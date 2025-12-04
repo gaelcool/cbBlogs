@@ -54,6 +54,29 @@ body {
   pointer-events: none;
 }
 
+.btn-support {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #FF6B9D, #FF9EBF);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 107, 157, 0.3);
+}
+
+.btn-support:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 107, 157, 0.4);
+    background: linear-gradient(135deg, #FF9EBF, #FF6B9D);
+}
+
+.btn-support:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 107, 157, 0.3);
+}
 /* Navigation */
 .nav {
     position: sticky;

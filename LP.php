@@ -13,21 +13,15 @@ $user_blogs  = countUserPosts($pdo, $_SESSION['usuario']);
 $total_blogs = countTotalPosts($pdo);
 
 
-// Get Impact Stats
 $impactStats = getUserImpactStats($pdo, $_SESSION['id_usr']);
 
-//check progress
 $progressPoints = getUserPoints($pdo, $_SESSION['id_usr']);
 $progressPercent = min(100, $progressPoints); 
 
-// Calculate opacity: 0.1 at 0 points, 1.0 at 100 points
 $progressOpacity = 0.1 + (min($progressPoints, 100) / 100) * 0.9;
 $isUnlocked = $progressPoints >= 100;
 
 
-
-
-// Get Recent Implemented Changes
 $stmt = $pdo->query("
     SELECT ic.*, u.nombre as implementer_name 
     FROM implemented_changes ic
@@ -39,7 +33,6 @@ $recentChanges = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-// Get Trending Posts (Latest 3 for now)
 $stmt = $pdo->query("
     SELECT id, title, author_name, created_at
     FROM post
@@ -48,14 +41,12 @@ $stmt = $pdo->query("
 ");
 $trendingPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Get Active Democracy Count
 $stmt = $pdo->query("SELECT COUNT(*) FROM suggestions WHERE status = 'pending'");
 $pendingSuggestions = $stmt->fetchColumn();
 
-// Get the current hour in 24‑hour format (0–23)
-$hour = (int)date('G');
+$hour = (int)date('G');     // Get the current hour in 24‑hour format (0–23)
 
-// Determine the appropriate greeting
+
 if ($hour < 12) {
     $greeting = "Buenos días";
 } elseif ($hour < 18) {
