@@ -83,7 +83,7 @@ if ($hour < 12) {
             <a href="Read.php">Leer Blogs</a>
             <a href="resources.php">Recursos</a>
             <a href="democracy.php">Tu Voz</a>
-            <a href="Account-info.php">Mi Cuenta</a>z   
+            <a href="Account-info.php">Mi Cuenta</a>   
             <?php if (isAdmin()): ?>
                 <a href="admin_dashboard.php">Panel Admin</a>
             <?php endif; ?>
