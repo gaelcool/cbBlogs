@@ -509,7 +509,7 @@ footer {
   }
   
   .nav {
-    flex-direction: row;
+    flex-direction: column;
     gap: 1rem;
   }
   
@@ -518,5 +518,12 @@ footer {
     justify-content: center;
   }
 
+  .rightsmallwarn {
+      position: static;
+      width: 100%;
+      max-height: none;
+      margin-top: 2rem;
+      box-sizing: border-box;
+  }
 }
     
