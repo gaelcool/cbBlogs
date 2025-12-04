@@ -75,8 +75,16 @@ if ($points >= 150)
             justify-content: space-between;
             align-items: center;
         }
-        .style-info h3 { margin: 0 0 0.5rem 0; color: var(--primary); }
-        .style-info p { margin: 0; opacity: 0.8; }
+
+        .style-info h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary);
+        }
+
+        .style-info p {
+            margin: 0;
+            opacity: 0.8;
+        }
 
         /* Dropdown toggle styles */
         .dropdown-header {
@@ -269,6 +277,18 @@ if ($points >= 150)
                 icon.classList.add('expanded');
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Make edit section clickable
+            const editSection = document.querySelector('.edit-section');
+            if (editSection) {
+                editSection.style.cursor = 'pointer';
+                editSection.addEventListener('click', (e) => {
+                    if (e.target.closest('button')) return;
+                    document.getElementById('editBtn').click();
+                });
+            }
+        });
     </script>
 </body>
 

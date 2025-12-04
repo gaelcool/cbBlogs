@@ -190,6 +190,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
         </main>
 
+        <section class="finger-drawing">
+            <h3>¡Dibuja algo!</h3>
+            <p>Usa tu dedo o ratón para dejar tu marca.</p>
+            <canvas id="drawingCanvas"></canvas>
+        </section>
+
         <footer>
             <div class="ftback"></div>
             <div class="footer-content">
@@ -229,6 +235,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             document.body.classList.toggle("menu-open");
         });
 
+        // Finger Drawing Logic
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        // Set drawing style
+        ctx.strokeStyle = '#FF69B4'; // Hot pink to match theme
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 3;
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            e.preventDefault(); // Prevent scrolling on touch
+
+            let clientX, clientY;
+
+            if (e.type.includes('touch')) {
+                const touch = e.touches[0];
+                clientX = touch.clientX;
+                clientY = touch.clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            const rect = canvas.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            [lastX, lastY] = [x, y];
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+
+            let clientX, clientY;
+            if (e.type.includes('touch')) {
+                const touch = e.touches[0];
+                clientX = touch.clientX;
+                clientY = touch.clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            const rect = canvas.getBoundingClientRect();
+            [lastX, lastY] = [clientX - rect.left, clientY - rect.top];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        // Event listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing, {
+            passive: false
+        });
+        canvas.addEventListener('touchmove', draw, {
+            passive: false
+        });
+        canvas.addEventListener('touchend', stopDrawing);
+
+        // Scroll detection for fade-in
+        const drawingSection = document.querySelector('.finger-drawing');
+
+        window.addEventListener('scroll', () => {
+            const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+
+            if (scrollPercent > 0.7) {
+                drawingSection.style.opacity = '1';
+                drawingSection.style.transform = 'translateY(0)';
+            }
+        });
     </script>
 </body>
 
