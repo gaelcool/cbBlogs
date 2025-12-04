@@ -7,3 +7,6 @@ lib/common_clean_backup.php
 data/study_resources
 data.sqlite
 data/blog_media/692f5e7e4589f_imagen proyecto.jpg
+production_verify.ps1
+implementation_plan.md
+task.md
