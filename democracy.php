@@ -23,12 +23,14 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Voz Cuenta - CbNoticias</title>
     <link rel="stylesheet" href="css/democracy.css">
 </head>
+
 <body>
     <nav class="nav">
         <div class='logo'>
@@ -52,11 +54,11 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="page-header">
             <h1> <div id="movingIcon" class="iconDemocracy"></div><span style="position:relative; z-index:2;">Tu Voz Cuenta</span></h1>
             <p>Participa en la mejora de nuestra escuela</p>
-            
+
             <div class="action-buttons">
                 <a href="submit_suggestion.php" class="btn btn-primary">💡 Nueva Sugerencia</a>
                 <a href="submit_grievance.php" class="btn btn-warning">⚠️ Reportar Problema</a>
-                
+
                 <?php if ($adminInfo['es_admin']): ?>
                     <a href="reportes.php" class="btn" style="background: #6f42c1; color: white;">🛡️ Panel de Reportes</a>
                 <?php endif; ?>
@@ -75,37 +77,38 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="suggestion-header">
                             <span class="category-badge"><?php echo htmlEscape($sug['category']); ?></span>
                             <span class="status-badge <?php echo $sug['status']; ?>">
-                                <?php 
-                                    $statusMap = [
-                                        'pending' => 'Pendiente',
-                                        'under_review' => 'En Revisión',
-                                        'in_progress' => 'En Progreso',
-                                        'implemented' => 'Implementado',
-                                        'declined' => 'Declinado'
-                                    ];
-                                    echo $statusMap[$sug['status']] ?? $sug['status'];
+                                <?php
+                                $statusMap = [
+                                    'pending' => 'Pendiente',
+                                    'under_review' => 'En Revisión',
+                                    'in_progress' => 'En Progreso',
+                                    'implemented' => 'Implementado',
+                                    'declined' => 'Declinado'
+                                ];
+                                echo $statusMap[$sug['status']] ?? $sug['status'];
                                 ?>
                             </span>
                         </div>
-                        
+
                         <h3 class="suggestion-title"><?php echo htmlEscape($sug['title']); ?></h3>
-                        
+
                         <div class="suggestion-meta">
-                            <span>👤 <?php echo $sug['is_anonymous'] ? 'Estudiante Anónimo' : htmlEscape($sug['author_name']); ?></span>
+                            <span>👤
+                                <?php echo $sug['is_anonymous'] ? 'Estudiante Anónimo' : htmlEscape($sug['author_name']); ?></span>
                             <span>📅 <?php echo TraduceSQLfecha($sug['created_at']); ?></span>
                         </div>
-                        
+
                         <div class="suggestion-body">
                             <?php echo nl2br(htmlEscape($sug['description'])); ?>
                         </div>
-                        
+
                         <?php if ($sug['admin_response']): ?>
-                        <div class="admin-response">
-                            <strong>Respuesta Admin:</strong>
-                            <p><?php echo htmlEscape($sug['admin_response']); ?></p>
-                        </div>
+                            <div class="admin-response">
+                                <strong>Respuesta Admin:</strong>
+                                <p><?php echo htmlEscape($sug['admin_response']); ?></p>
+                            </div>
                         <?php endif; ?>
-                        
+
                         <div class="suggestion-footer">
                             <div class="support-count" id="support-count-<?php echo $sug['id']; ?>">
                                 ❤️ <?php echo $sug['real_support_count']; ?> apoyos
@@ -120,37 +123,54 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <script>
-    function voteSuggestion(suggestionId) {
-        if (!confirm)  return;
+        function voteSuggestion(suggestionId) {
+            if (!confirm) return;
 
-        fetch('vote_suggestion.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'suggestion_id=' + suggestionId
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                // Update count visually
-                const countElement = document.getElementById('support-count-' + suggestionId);
-                if (countElement) {
-                    countElement.innerHTML = '❤️ ' + data.new_count + ' apoyos';
-                }
-                if (data.points_awarded) {
-                    alert("¡Felicidades! Tu voto ha ayudado a que el autor reciba puntos de bonificación.");
-                }
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un error al procesar tu voto.');
+            fetch('vote_suggestion.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'suggestion_id=' + suggestionId
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        // Update count visually
+                        const countElement = document.getElementById('support-count-' + suggestionId);
+                        if (countElement) {
+                            countElement.innerHTML = '❤️ ' + data.new_count + ' apoyos';
+                        }
+                        if (data.points_awarded) {
+                            alert("¡Felicidades! Tu voto ha ayudado a que el autor reciba puntos de bonificación.");
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Hubo un error al procesar tu voto.');
+                });
+        }
+
+        // Make suggestion cards clickable
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.suggestion-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on a button or link directly
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+
+                    const btn = card.querySelector('.btn-support');
+                    if (btn) {
+                        btn.click();
+                    }
+                });
+            });
         });
-    }
     </script>
 </body>
+
 </html>

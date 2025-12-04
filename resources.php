@@ -18,12 +18,14 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursos de Estudio - CbNoticias</title>
     <link rel="stylesheet" href="css/resources.css">
 </head>
+
 <body>
     <nav class="nav">
         <div class='logo'>
@@ -84,11 +86,10 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             <?php else: ?>
                 <?php foreach ($resources as $resource): ?>
-                    <div class="blog-card resource-card" 
-                         data-subject="<?php echo htmlEscape($resource['subject']); ?>" 
-                         data-grade="<?php echo htmlEscape($resource['grade']); ?>"
-                         data-uploader="<?php echo htmlEscape($resource['uploader_name']); ?>">
-                        
+                    <div class="blog-card resource-card" data-subject="<?php echo htmlEscape($resource['subject']); ?>"
+                        data-grade="<?php echo htmlEscape($resource['grade']); ?>"
+                        data-uploader="<?php echo htmlEscape($resource['uploader_name']); ?>">
+
                         <div class="blog-header">
                             <div style="flex: 1;">
                                 <h3 class="blog-title"><?php echo htmlEscape($resource['title']); ?></h3>
@@ -96,30 +97,31 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                             <span class="blog-tag"><?php echo strtoupper($resource['resource_type']); ?></span>
                         </div>
-                        
+
                         <div class="blog-meta">
                             <span class="blog-author">👤 <?php echo htmlEscape($resource['uploader_name']); ?></span>
                             <span class="blog-date">📅 <?php echo TraduceSQLfecha($resource['uploaded_at']); ?></span>
                         </div>
-                        
+
                         <div class="blog-preview">
                             <?php echo htmlEscape($resource['description']); ?>
                         </div>
-                        
+
                         <div class="card-actions">
                             <?php if ($resource['resource_type'] === 'link'): ?>
                                 <a href="<?php echo htmlEscape($resource['external_url']); ?>" target="_blank" class="read-more-btn">🔗 Abrir Enlace</a>
                             <?php elseif ($resource['resource_type'] === 'file'): ?>
-                                <a href="<?php echo htmlEscape($resource['file_path']); ?>" download class="read-more-btn">⬇️ Descargar Archivo</a>
+                                <a href="<?php echo htmlEscape($resource['file_path']); ?>" download class="read-more-btn">⬇️
+                                    Descargar Archivo</a>
                             <?php else: ?>
                                 <a href="#" class="read-more-btn">📄 Ver Contenido</a>
                             <?php endif; ?>
-                            </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
     </div>
 
     <script>
@@ -129,16 +131,16 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
             const subjectFilter = document.getElementById('subjectFilter').value;
             const gradeFilter = document.getElementById('gradeFilter').value;
             const cards = document.querySelectorAll('.resource-card');
-            
+
             cards.forEach(card => {
                 const title = card.querySelector('.blog-title').textContent.toLowerCase();
                 const subject = card.getAttribute('data-subject');
                 const grade = card.getAttribute('data-grade');
-                
+
                 const matchesSearch = title.includes(searchTerm);
                 const matchesSubject = subjectFilter === '' || subject === subjectFilter;
                 const matchesGrade = gradeFilter === '' || grade === gradeFilter;
-                
+
                 if (matchesSearch && matchesSubject && matchesGrade) {
                     card.style.display = 'block';
                 } else {
@@ -146,10 +148,27 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
             });
         }
-        
+
         document.getElementById('searchInput').addEventListener('input', filterResources);
         document.getElementById('subjectFilter').addEventListener('change', filterResources);
         document.getElementById('gradeFilter').addEventListener('change', filterResources);
+
+        // Make resource cards clickable
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.resource-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on a button or link directly
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+
+                    const link = card.querySelector('.read-more-btn');
+                    if (link) {
+                        link.click();
+                    }
+                });
+            });
+        });
     </script>
 </body>
+
 </html>
