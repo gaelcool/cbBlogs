@@ -4,28 +4,24 @@ session_start();
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
-{
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo = getPDO();
-    
-    
+
+
     $usuario = trim($_POST['user']);
     $clave = $_POST['clave'];
-    
+
     try {
         // intentar loguear
         $userData = intentaLogin($pdo, $usuario, $clave);
-        
-        if ($userData)
-        {
+
+        if ($userData) {
             // login exitoso
             login($userData['user'], $userData['nombre'], $userData['genero_lit_fav']);
-            
+
             header('Location: LP.php');
             exit();
-        }
-        else
-        {
+        } else {
             $error = 'Usuario o contraseña incorrectos';
         }
     } catch (Exception $e) {
@@ -36,20 +32,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nosotros - CbNoticias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/us.css">
 
 </head>
+
 <body>
-   
-    
+
+
     <div class="wrapper">
-         <div class="top_right"> <button id="hamButton" class="hambtn">&#9776;</button></div>
+        <div class="top_right"> <button id="hamButton" class="hambtn">&#9776;</button></div>
         <header>
-           
+
             <div class="logo">
                 <h1>CbNoticias</h1>
             </div>
@@ -64,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 <input type="password" name="clave" placeholder="Contraseña" required>
                 <button type="submit" id="submitBtn">Entrar a tu comunidad</button>
             </form>
-            
+
             <div class="smallUnder">
                 <a href="logout.php" class="active">Cerrar sesión si tienes una abierta</a>
             </div>
@@ -72,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
         <!-- menú interactivo del lado derecho -->
         <aside class="column">
-           
-            
+
+
             <h3 style="color: var(--accent); text-align: center; margin-bottom: 20px;"> Información Rápida</h3>
 
             <!-- item del menú 1: cómo funciona -->
@@ -83,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     <span class="menu-icon">▼</span>
                 </div>
                 <div class="menu-content">
-                    <p>CbNoticias es presentado como un sitio de blogs, pero cuenta con varias secciones para que crezcan pequeñas comunidades dentro del mismo, e incluso talleres.</p>
+                    <p>CbNoticias es presentado como un sitio de blogs, pero cuenta con varias secciones para que
+                        crezcan pequeñas comunidades dentro del mismo, e incluso talleres.</p>
                     <ul>
                         <li>Regístrate con tu credencial estudiantil</li>
                         <li>Comparte contenido y sube de nivel</li>
@@ -91,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                         <li>Mantente conectado con tu escuela</li>
                     </ul>
                 </div>
-                
+
             </div>
 
             <!-- item del menú 2: características -->
@@ -128,19 +132,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                     </ul>
                 </div>
             </div>
-             <div class="bottom_decoration"></div>
+            <div class="bottom_decoration"></div>
         </aside>
 
-     
-        
+
+
         <main class="container">
             <section class="intro">
                 <h2>Sobre Nosotros</h2>
-                <p>Cbnoticias busca fomentar comunicación estudiantil.</p> 
-                <div class='rightbot'><strong>Abierto las 24 horas del día, los 365 días del año.</strong></div>       
+                <p>Cbnoticias busca fomentar comunicación estudiantil.</p>
+                <div class='rightbot'><strong>Abierto las 24 horas del día, los 365 días del año.</strong></div>
             </section>
 
-            <section class="localANDtrian">   
+            <section class="localANDtrian">
                 <div class="location">
                     <h3>Nuestra Ubicación:</h3>
                     <div class="map-container">
@@ -155,11 +159,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             <section class="certifications">
                 <h3>Iniciativas:</h3>
                 <div class="cert-grid">
-                    <div class="info-card glass-container"> 
+                    <div class="info-card glass-container">
                         <div class="cert-card">
                             <img src="img/cert1.gif" alt="Promover comunicación">
                             <h4>Política social</h4>
-                            <p>Se busca fomentar y diseñar una comunidad no replicable. Incrementamos la compasión entre el cuerpo estudiantil ofreciendo un lugar privado y seguro donde pueden comunicar ideas y apoyarse mutuamente.</p>
+                            <p>Se busca fomentar y diseñar una comunidad no replicable. Incrementamos la compasión entre
+                                el cuerpo estudiantil ofreciendo un lugar privado y seguro donde pueden comunicar ideas
+                                y apoyarse mutuamente.</p>
                         </div>
                     </div>
 
@@ -167,10 +173,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                         <div class="cert-card">
                             <img src="img/cert2.gif" alt="Educación emocional">
                             <h4>Desarrollo social dentro del CBTis</h4>
-                            <p>Fortalecer el conocimiento mutuo entre estudiantes del CBTis 03, creando un espacio donde ambos turnos y todos los grados puedan estar al corriente con las novedades de la comunidad estudiantil.</p>
+                            <p>Fortalecer el conocimiento mutuo entre estudiantes del CBTis 03, creando un espacio donde
+                                ambos turnos y todos los grados puedan estar al corriente con las novedades de la
+                                comunidad estudiantil.</p>
                         </div>
                     </div>
-                    
+
                     <div class="info-card glass-container">
                         <div class="cert-card">
                             <img src="img/yah4.gif" alt="Chisme sin lastimar">
@@ -202,25 +210,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         function toggleMenu(header) {
             const menuItem = header.parentElement;
             const allMenuItems = document.querySelectorAll('.menu-item');
-            
+
             // cerrar otros menús
             allMenuItems.forEach(item => {
                 if (item !== menuItem && item.classList.contains('active')) {
                     item.classList.remove('active');
                 }
             });
-            
+
             // alternar menú actual
             menuItem.classList.toggle('active');
         }
 
-     
-       
-document.getElementById("hamButton").addEventListener("click", () => {
-    document.querySelector(".column").classList.toggle("open")
-    document.body.classList.toggle("menu-open");
-});
+
+
+        document.getElementById("hamButton").addEventListener("click", () => {
+            document.querySelector(".column").classList.toggle("open")
+            document.body.classList.toggle("menu-open");
+        });
 
     </script>
 </body>
+
 </html>

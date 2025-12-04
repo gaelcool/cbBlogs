@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/common.php';
 session_start();
+require_once 'lib/common.php';
 requiereLogin();
 
 
@@ -11,7 +11,7 @@ foreach ($blogs as &$blog) {
     $wordCount = str_word_count(strip_tags($blog['content']));
     $blog['palabra_count'] = $wordCount;
     $blog['tiempo_lectura'] = max(1, ceil($wordCount / 200)); // asumiendo 200 palabras por minuto
-    
+
     $blog['titulo'] = $blog['title'];
     $blog['subtitulo'] = $blog['subtitle'];
     $blog['contenido'] = convertnewlines($blog['content']);
@@ -24,12 +24,19 @@ unset($blog); // deshacer
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leer Blogs - CbNoticias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/read.css">
 </head>
+
 <body>
     <nav class="nav">
         <div class='logo'>
@@ -50,7 +57,10 @@ unset($blog); // deshacer
 
     <div class="read-container">
         <div class="page-header">
-            <h1> <div id="movingIcon" class="iconOG"></div><span style="position:relative; z-index:2;">Explorar Blogs</span></h1>
+            <h1>
+                <div id="movingIcon" class="iconOG"></div><span style="position:relative; z-index:2;">Explorar
+                    Blogs</span>
+            </h1>
             <p>Descubre artículos fascinantes de nuestra comunidad</p>
         </div>
 
@@ -88,7 +98,10 @@ unset($blog); // deshacer
                 </div>
             <?php else: ?>
                 <?php foreach ($blogs as $blog): ?>
-                    <div class="blog-card" data-tag="<?php echo htmlEscape($blog['tag']); ?>" data-author="<?php echo htmlEscape($blog['autor']); ?>" data-date="<?php echo htmlEscape($blog['fecha_creacion']); ?>" data-words="<?php echo $blog['palabra_count']; ?>">
+                    <div class="blog-card" data-tag="<?php echo htmlEscape($blog['tag']); ?>"
+                        data-author="<?php echo htmlEscape($blog['autor']); ?>"
+                        data-date="<?php echo htmlEscape($blog['fecha_creacion']); ?>"
+                        data-words="<?php echo $blog['palabra_count']; ?>">
                         <div class="blog-header">
                             <div style="flex: 1;">
                                 <h3 class="blog-title"><?php echo htmlEscape($blog['titulo']); ?></h3>
@@ -98,27 +111,26 @@ unset($blog); // deshacer
                             </div>
                             <span class="blog-tag"><?php echo htmlEscape($blog['tag']); ?></span>
                         </div>
-                        
+
                         <?php if (!empty($blog['file_path'])): ?>
                             <div class="blog-image-container" style="display: flex; justify-content: center; margin: 1rem 0;">
-                                <img src="img/blog_media/<?php echo htmlEscape($blog['file_path']); ?>" 
-                                     alt="Blog Image" 
-                                     style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
+                                <img src="img/blog_media/<?php echo htmlEscape($blog['file_path']); ?>" alt="Blog Image"
+                                    style="width: 700px; height: 500px; object-fit: cover; border-radius: 8px;">
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="blog-meta">
                             <span class="blog-author">👤 <?php echo htmlEscape($blog['autor']); ?></span>
                             <span class="blog-date">📅 <?php echo TraduceSQLfecha($blog['fecha_creacion']); ?></span>
                         </div>
-                        
+
                         <div class="blog-stats">
                             <span class="stat-badge">📊 <?php echo $blog['palabra_count']; ?> palabras</span>
                             <span class="stat-badge">⏱️ <?php echo $blog['tiempo_lectura']; ?> min lectura</span>
                         </div>
-                        
+
                         <div class="blog-preview">
-                            <?php 
+                            <?php
                             $preview = substr($blog['content'], 0, 200);
                             if (strlen($blog['content']) > 200) {
                                 $preview .= '...';
@@ -126,7 +138,7 @@ unset($blog); // deshacer
                             echo $preview;
                             ?>
                         </div>
-                        
+
                         <div class="card-actions">
                             <a href="blog_post.php?id=<?php echo $blog['id']; ?>" class="read-more-btn">🔗 Ver página completa</a>
                         </div>
@@ -145,7 +157,7 @@ unset($blog); // deshacer
         window.addEventListener('load', () => {
             const icon = document.getElementById('movingIcon');
             const searchInput = document.getElementById('searchInput');
-            
+
             if (icon && searchInput) {
                 // usar requestAnimationFrame para asegurar que el layout está listo
                 requestAnimationFrame(() => {
@@ -153,24 +165,24 @@ unset($blog); // deshacer
                     setTimeout(() => {
                         const iconRect = icon.getBoundingClientRect();
                         const inputRect = searchInput.getBoundingClientRect();
-                        
+
                         const iconCenterX = iconRect.left + iconRect.width / 2;
                         const iconCenterY = iconRect.top + iconRect.height / 2;
-                        
+
                         // Target position: right side of input, vertically centered
                         // inputRect.right - 30px padding
-                        const targetX = inputRect.right - 30; 
+                        const targetX = inputRect.right - 30;
                         const targetY = inputRect.top + inputRect.height / 2;
-                        
+
                         const deltaX = targetX - iconCenterX;
                         const deltaY = targetY - iconCenterY;
-                        
+
                         icon.style.setProperty('--tx', `${deltaX}px`);
                         icon.style.setProperty('--ty', `${deltaY}px`);
-                        
+
                         // Force reflow
                         void icon.offsetWidth;
-                        
+
                         icon.classList.add('animate-icon');
                     }, 150);
                 });
@@ -183,12 +195,12 @@ unset($blog); // deshacer
                 setTimeout(() => {
                     toast.classList.add('show');
                 }, 500);
-                
+
                 // Hide after 4 seconds
                 setTimeout(() => {
                     toast.classList.remove('show');
                 }, 4500);
-                
+
                 // Clean URL
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
@@ -197,7 +209,7 @@ unset($blog); // deshacer
         function toggleContent(blogId) {
             const content = document.getElementById('content-' + blogId);
             const btnText = document.getElementById('btn-text-' + blogId);
-            
+
             if (content.classList.contains('show')) {
                 content.classList.remove('show');
                 btnText.textContent = 'Leer más';
@@ -206,29 +218,29 @@ unset($blog); // deshacer
                 btnText.textContent = 'Leer menos';
             }
         }
-        
+
         // filtros y funcionalidad de búsqueda
         function filterBlogs() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const tagFilter = document.getElementById('tagFilter').value;
             const sortFilter = document.getElementById('sortFilter').value;
             const blogCards = Array.from(document.querySelectorAll('.blog-card'));
-            
+
             let visibleBlogs = [];
-            
+
             blogCards.forEach(card => {
                 const title = card.querySelector('.blog-title').textContent.toLowerCase();
                 const preview = card.querySelector('.blog-preview').textContent.toLowerCase();
                 const tag = card.getAttribute('data-tag');
                 const author = card.getAttribute('data-author').toLowerCase();
-                
-                const matchesSearch = searchTerm === '' || 
-                    title.includes(searchTerm) || 
+
+                const matchesSearch = searchTerm === '' ||
+                    title.includes(searchTerm) ||
                     preview.includes(searchTerm) ||
                     author.includes(searchTerm);
-                
+
                 const matchesTag = tagFilter === '' || tag === tagFilter;
-                
+
                 if (matchesSearch && matchesTag) {
                     card.style.display = 'block';
                     visibleBlogs.push(card);
@@ -236,7 +248,7 @@ unset($blog); // deshacer
                     card.style.display = 'none';
                 }
             });
-            
+
             // ordenar blogs
             if (sortFilter === 'newest') {
                 visibleBlogs.sort((a, b) => {
@@ -263,23 +275,24 @@ unset($blog); // deshacer
                     return wordsA - wordsB;
                 });
             }
-            
+
             // reordenar en el DOM
             const container = document.getElementById('blogsContainer');
             visibleBlogs.forEach(card => {
                 container.appendChild(card);
             });
         }
-        
+
         // agregar event listeners
         document.getElementById('searchInput').addEventListener('input', filterBlogs);
         document.getElementById('tagFilter').addEventListener('change', filterBlogs);
         document.getElementById('sortFilter').addEventListener('change', filterBlogs);
-        
+
         // inicializar
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             filterBlogs();
         });
     </script>
 </body>
+
 </html>

@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 14px;
 }
 
 
@@ -116,13 +117,21 @@ body {
             color: var(--accent);
             margin-bottom: 1rem;
             font-weight: 700;
+            font-family: 'Times New Roman', serif;
+        }
+
+        h1, h2, h3, h4,h5, h6 {
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: bold;
         }
 
         .hero .subtitle {
-            font-size: 1.3rem;
+            font-size: 14.5px;
             color: var(--text);
             margin-bottom: 2rem;
             opacity: 0.9;
+            font-family: 'Fira Code', monospace;
+            font-weight: 300;
         }
 
         .hero-description {
@@ -266,7 +275,7 @@ body {
             text-decoration: none;
             box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
             transition: all 0.3s ease;
-            z-index: 1000;
+            z-index: 10001;
         }
 
         .help-button:hover {
@@ -297,6 +306,8 @@ body {
             text-align: center;
             color: var(--text);
             margin-top: 3rem;
+            position: relative;
+            z-index: 500;
         }
 
         .footer-content {
@@ -346,7 +357,12 @@ body {
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+@media (max-width: 768px) {
+            body {
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
+
             .hero h1 {
                 font-size: 2rem;
             }

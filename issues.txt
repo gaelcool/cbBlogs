@@ -1,4 +1,0 @@
-
-Issue:
-Liking a suggestion in @democracy.php then clicking okay to the pop up confirming your like went trhough, doesnt actually update the like meter correctly.
-Currently the likes goes up by like 10 for some reason and on reload it works

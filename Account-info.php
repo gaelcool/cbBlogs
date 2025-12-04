@@ -47,14 +47,21 @@ foreach ($unlocks as $p => $data) {
 }
 
 $progressPercent = min(100, ($points / $nextUnlockPoints) * 100);
-if ($points >= 150) $progressPercent = 100;
+if ($points >= 150)
+    $progressPercent = 100;
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Cuenta - CbNoticias</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/account-inf.css">
     <style>
         .style-card {
@@ -70,7 +77,7 @@ if ($points >= 150) $progressPercent = 100;
         }
         .style-info h3 { margin: 0 0 0.5rem 0; color: var(--primary); }
         .style-info p { margin: 0; opacity: 0.8; }
-        
+
         /* Dropdown toggle styles */
         .dropdown-header {
             display: flex;
@@ -80,24 +87,24 @@ if ($points >= 150) $progressPercent = 100;
             user-select: none;
             padding: 0.5rem 0;
         }
-        
+
         .dropdown-icon {
             font-size: 1.2rem;
             transition: transform 0.3s ease;
             color: var(--primary);
         }
-        
+
         .dropdown-icon.expanded {
             transform: rotate(180deg);
         }
-        
+
         .dropdown-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
             opacity: 0;
         }
-        
+
         .dropdown-content.expanded {
             max-height: 1000px;
             opacity: 1;
@@ -107,7 +114,7 @@ if ($points >= 150) $progressPercent = 100;
 </head>
 
 <body class="ey">
-     
+
     <nav class="nav">
         <div class='logo'>
             <h2> CbNoticias</h2>
@@ -151,28 +158,33 @@ if ($points >= 150) $progressPercent = 100;
         </div>
 
         <!-- Points & Progress Section -->
-        <div class="style-card" style="display:block; margin-bottom: 2rem; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.6s; opacity: 0;">
+        <div class="style-card"
+            style="display:block; margin-bottom: 2rem; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.6s; opacity: 0;">
             <div class="dropdown-header" onclick="toggleDropdown('pointsDropdown')">
                 <h3 style="margin:0;"> Puntos de Contribución: <?php echo $points; ?></h3>
                 <span class="dropdown-icon" id="pointsDropdownIcon">▼</span>
             </div>
-            
+
             <div class="dropdown-content" id="pointsDropdown">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin:1rem 0;">
                     <span>Siguiente: <?php echo $nextUnlockName; ?> (<?php echo $nextUnlockPoints; ?> pts)</span>
                 </div>
-                
-                <div style="background:rgba(255,255,255,0.1); border-radius:10px; height:20px; width:100%; overflow:hidden;">
-                    <div style="background:var(--primary); height:100%; width:<?php echo $progressPercent; ?>%; transition: width 0.5s ease;"></div>
+
+                <div
+                    style="background:rgba(255,255,255,0.1); border-radius:10px; height:20px; width:100%; overflow:hidden;">
+                    <div
+                        style="background:var(--primary); height:100%; width:<?php echo $progressPercent; ?>%; transition: width 0.5s ease;">
+                    </div>
                 </div>
 
                 <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
                     <?php foreach ($unlocks as $reqPoints => $data): ?>
-                        <div style="background: <?php echo $points >= $reqPoints ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'; ?>; 
+                        <div
+                            style="background: <?php echo $points >= $reqPoints ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'; ?>; 
                                     padding: 0.5rem 1rem; border-radius: 8px; 
                                     opacity: <?php echo $points >= $reqPoints ? '1' : '0.5'; ?>;
                                     border: 1px solid <?php echo $points >= $reqPoints ? 'var(--primary)' : 'transparent'; ?>;">
-                            <?php echo $data['icon']; ?> <?php echo $data['name']; ?> 
+                            <?php echo $data['icon']; ?>     <?php echo $data['name']; ?>
                             <span style="font-size:0.8em; opacity:0.7;">(<?php echo $reqPoints; ?> pts)</span>
                         </div>
                     <?php endforeach; ?>
@@ -218,12 +230,13 @@ if ($points >= 150) $progressPercent = 100;
             </div>
         </div>
 
-        <div class="style-card" style="display:block; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.8s; opacity: 0;">
+        <div class="style-card"
+            style="display:block; animation: fadeInUp 0.8s ease-out forwards; animation-delay: 0.8s; opacity: 0;">
             <div class="dropdown-header" onclick="toggleDropdown('styleDropdown')">
                 <h3 style="margin:0;"> Apariencia del Blog</h3>
                 <span class="dropdown-icon" id="styleDropdownIcon">▼</span>
             </div>
-            
+
             <div class="dropdown-content" id="styleDropdown">
                 <div style="margin-top: 1rem;">
                     <p>Tema actual: <strong><?php echo $currentTemplate; ?></strong></p>
@@ -238,16 +251,16 @@ if ($points >= 150) $progressPercent = 100;
             <button class="btn" onclick="window.location.href='updateAcc.php'" id="editBtn">Editar Información</button>
         </div>
     </div>
-    
-    <footer class="footer">    
-        &copy; 2025 CbNoticias. Suerte 
+
+    <footer class="footer">
+        &copy; 2025 CbNoticias. Suerte
     </footer>
-    
+
     <script>
         function toggleDropdown(dropdownId) {
             const dropdown = document.getElementById(dropdownId);
             const icon = document.getElementById(dropdownId + 'Icon');
-            
+
             if (dropdown.classList.contains('expanded')) {
                 dropdown.classList.remove('expanded');
                 icon.classList.remove('expanded');
@@ -258,4 +271,5 @@ if ($points >= 150) $progressPercent = 100;
         }
     </script>
 </body>
+
 </html>

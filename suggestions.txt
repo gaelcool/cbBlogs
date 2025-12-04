@@ -1,0 +1,13 @@
+First off we need to make it so that the app feels more closed off than it is.
+    >make it so that you can only login with your school id (has to start with 233 and be a 14 digit number)
+        :Close off current login page and redirect nav links to loginTemp.php
+
+It also has to be presentable e.g:
+    >Database needs more pretty examples
+    >We need more templates
+    >We MUST apply a single 'unique' font face, i suggest Fira code. 
+    >Add more features or things for people w/o accounts to see other than us.php 
+    >On mobile people click the divs, not the buttons so- Make EVERY currently hoverable glass container have the same functionality as their buttons (if they have a button to begin with)\
+    >Make sure theres nothing off screen and focus on mobile design for this version of the site.
+
+I suggest we make a new branch for this version of the site and make it so that it can be easily merged with the main branch when we're ready to release it.

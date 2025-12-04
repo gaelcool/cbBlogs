@@ -11,6 +11,11 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CbBlogs - Tu Foro Estudiantil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/indexstyles.css">
 </head>
 
@@ -43,35 +48,35 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
         </section>
 
         <?php if ($featuredPost): ?>
-        <section class="featured-post-section">
-            <div class="glass-container" style="padding: 2.5rem; margin: 2rem 0;">
-                <h2 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1.5rem; text-align: center;">
-                    Blog Destacado
-                </h2>
-                <div class="featured-post">
-                    <h3 style="font-size: 1.5rem; color: var(--text); margin-bottom: 0.75rem;">
-                        <?php echo htmlspecialchars($featuredPost['title']); ?>
-                    </h3>
-                    <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">
-                        Por <?php echo htmlspecialchars($featuredPost['author_name']); ?> 
-                        - <?php echo date('d/m/Y', strtotime($featuredPost['created_at'])); ?>
-                    </p>
-                    <p style="color: var(--text); line-height: 1.6; margin-bottom: 1.5rem;">
-                        <?php 
-                        $preview = mb_substr(strip_tags($featuredPost['content']), 0, 200);
-                        echo htmlspecialchars($preview) . '...';
-                        ?>
-                    </p>
-                    <p style="text-align: center; color: var(--text-light);">
-                        <a href="registrar.php" style="color: var(--accent); font-weight: 600;">Regístrate</a> 
-                        para leer más historias como esta
-                    </p>
+            <section class="featured-post-section">
+                <div class="glass-container" style="padding: 2.5rem; margin: 2rem 0;">
+                    <h2 style="font-size: 1.8rem; color: var(--accent); margin-bottom: 1.5rem; text-align: center;">
+                        Blog Destacado
+                    </h2>
+                    <div class="featured-post">
+                        <h3 style="font-size: 1.5rem; color: var(--text); margin-bottom: 0.75rem;">
+                            <?php echo htmlspecialchars($featuredPost['title']); ?>
+                        </h3>
+                        <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">
+                            Por <?php echo htmlspecialchars($featuredPost['author_name']); ?>
+                            - <?php echo date('d/m/Y', strtotime($featuredPost['created_at'])); ?>
+                        </p>
+                        <p style="color: var(--text); line-height: 1.6; margin-bottom: 1.5rem;">
+                            <?php
+                            $preview = mb_substr(strip_tags($featuredPost['content']), 0, 200);
+                            echo htmlspecialchars($preview) . '...';
+                            ?>
+                        </p>
+                        <p style="text-align: center; color: var(--text-light);">
+                            <a href="registrar.php" style="color: var(--accent); font-weight: 600;">Regístrate</a>
+                            para leer más historias como esta
+                        </p>
+                    </div>
+                    <div class="cta-buttons">
+                        <a href="login.php" class="btn btn-secondary">Ya tengo cuenta</a>
+                    </div>
                 </div>
-                <div class="cta-buttons">
-                    <a href="login.php" class="btn btn-secondary">Ya tengo cuenta</a>
-                </div>
-            </div>
-        </section>
+            </section>
         <?php endif; ?>
 
         <div class="info-grid">

@@ -9,14 +9,14 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 $pdo = getPDO();
-$user_blogs  = countUserPosts($pdo, $_SESSION['usuario']);
+$user_blogs = countUserPosts($pdo, $_SESSION['usuario']);
 $total_blogs = countTotalPosts($pdo);
 
 
 $impactStats = getUserImpactStats($pdo, $_SESSION['id_usr']);
 
 $progressPoints = getUserPoints($pdo, $_SESSION['id_usr']);
-$progressPercent = min(100, $progressPoints); 
+$progressPercent = min(100, $progressPoints);
 
 $progressOpacity = 0.1 + (min($progressPoints, 100) / 100) * 0.9;
 $isUnlocked = $progressPoints >= 100;
@@ -44,7 +44,7 @@ $trendingPosts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->query("SELECT COUNT(*) FROM suggestions WHERE status = 'pending'");
 $pendingSuggestions = $stmt->fetchColumn();
 
-$hour = (int)date('G');     // Get the current hour in 24‑hour format (0–23)
+$hour = (int) date('G');     // Get the current hour in 24‑hour format (0–23)
 
 
 if ($hour < 12) {
@@ -59,14 +59,21 @@ if ($hour < 12) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CbNoticias - Hub Central</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/LP.css">
 </head>
+
 <body>
-    
+
     <nav class="nav">
         <div class='logo'>
             <h2> CbBlogs</h2>
@@ -87,8 +94,8 @@ if ($hour < 12) {
             <span class="user-name"><?php echo htmlEscape($_SESSION['nombre']); ?></span>
         </div>
         <button id="hamButton" class="hambtn" aria-label="Toggle menu">
-      &#9776;
-    </button>
+            &#9776;
+        </button>
     </nav>
 
     <div class="landing-container">
@@ -97,9 +104,10 @@ if ($hour < 12) {
                 <h1><?php echo $greeting; ?>, <?php echo htmlEscape($_SESSION['nombre']); ?>!</h1>
                 <p class="hero-subtitle">Bienvenido al Hub Central de CbNoticias</p>
             </div>
-                <!-- Progress Button -->
+            <!-- Progress Button -->
             <?php if ($isUnlocked): ?>
-                <a href="WriteWitMedia.php" class="btn-progress" style="opacity: <?php echo $progressOpacity; ?>; cursor: pointer;">
+                <a href="WriteWitMedia.php" class="btn-progress"
+                    style="opacity: <?php echo $progressOpacity; ?>; cursor: pointer;">
                     <span>🔓 Desbloqueado! (<?php echo $progressPoints; ?> puntos)</span>
                 </a>
             <?php else: ?>
@@ -112,127 +120,128 @@ if ($hour < 12) {
 
         <!-- Hub Portals Grid -->
         <div class="hub-grid">
-             <section class="top-lanes">
-            <div class="portal-card portal-primary">
-                <div class="portal-icon section-iconOG"></div>
-                <h3 class="portal-title">Zona Creativa</h3>
-                <p class="portal-description">
-                    Comparte tus ideas, experiencias y conocimientos con la comunidad.
-                </p>
-                <div class="portal-stats">
-                    <span class="stat-badge"><?php echo $user_blogs; ?> publicados</span>
+            <section class="top-lanes">
+                <div class="portal-card portal-primary">
+                    <div class="portal-icon section-iconOG"></div>
+                    <h3 class="portal-title">Zona Creativa</h3>
+                    <p class="portal-description">
+                        Comparte tus ideas, experiencias y conocimientos con la comunidad.
+                    </p>
+                    <div class="portal-stats">
+                        <span class="stat-badge"><?php echo $user_blogs; ?> publicados</span>
+                    </div>
+                    <a href="Write.php" class="portal-btn btn btn-primary">Escribir Blog</a>
                 </div>
-                <a href="Write.php" class="portal-btn btn btn-primary">Escribir Blog</a>
-            </div>
 
-            <div class="portal-card">
-                <div class="portal-icon section-icon"></div>
-                <h3 class="portal-title">Conecta</h3>
-                <p class="portal-description">
-                    Descubre artículos personales de tus compañeros.
-                </p>
-                <div class="portal-stats">
-                    <span class="stat-badge"><?php echo $total_blogs; ?> publicados</span>
+                <div class="portal-card">
+                    <div class="portal-icon section-icon"></div>
+                    <h3 class="portal-title">Conecta</h3>
+                    <p class="portal-description">
+                        Descubre artículos personales de tus compañeros.
+                    </p>
+                    <div class="portal-stats">
+                        <span class="stat-badge"><?php echo $total_blogs; ?> publicados</span>
+                    </div>
+                    <a href="Read.php" class="portal-btn btn">Explorar Blogs</a>
                 </div>
-                <a href="Read.php" class="portal-btn btn">Explorar Blogs</a>
-            </div>
- </section>
+            </section>
 
- <div class="impact-section">
-            <h2 class="section-heading">
-                Tu Impacto en la Comunidad
-            </h2>
-            <div class="impact-stats">
-                <div class="stat-card">
-                    <span class="stat-number"><?php echo $total_blogs; ?></span>
-                    <span class="stat-label">Blogs Escritos</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number"><?php echo $impactStats['resources_shared']; ?></span>
-                    <span class="stat-label">Recursos Compartidos</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number"><?php echo $impactStats['helpful_votes']; ?></span>
-                    <span class="stat-label">Votos Útiles</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number"><?php echo $impactStats['suggestions_made']; ?></span>
-                    <span class="stat-label">Sugerencias</span>
+            <div class="impact-section">
+                <h2 class="section-heading">
+                    Tu Impacto en la Comunidad
+                </h2>
+                <div class="impact-stats">
+                    <div class="stat-card">
+                        <span class="stat-number"><?php echo $total_blogs; ?></span>
+                        <span class="stat-label">Blogs Escritos</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><?php echo $impactStats['resources_shared']; ?></span>
+                        <span class="stat-label">Recursos Compartidos</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><?php echo $impactStats['helpful_votes']; ?></span>
+                        <span class="stat-label">Votos Útiles</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number"><?php echo $impactStats['suggestions_made']; ?></span>
+                        <span class="stat-label">Sugerencias</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
             <section class="bottom-lanes">
-            <div class="portal-card">
-                <div class="portal-icon section-icon-study"></div>
-                <h3 class="portal-title">Biblioteca</h3>
-                <p class="portal-description">
-                    Comparte y descarga material de estudio.
-                </p>
-                <div class="portal-stats">
-                    <span class="stat-badge"><?php echo $impactStats['resources_shared']; ?> recursos</span>
+                <div class="portal-card">
+                    <div class="portal-icon section-icon-study"></div>
+                    <h3 class="portal-title">Biblioteca</h3>
+                    <p class="portal-description">
+                        Comparte y descarga material de estudio.
+                    </p>
+                    <div class="portal-stats">
+                        <span class="stat-badge"><?php echo $impactStats['resources_shared']; ?> recursos</span>
+                    </div>
+                    <a href="resources.php" class="portal-btn btn">Ver Recursos</a>
                 </div>
-                <a href="resources.php" class="portal-btn btn">Ver Recursos</a>
-            </div>
 
-            <div class="portal-card portal-accent">
-                <div class="portal-icon section-icon-tips"></div>
-                <h3 class="portal-title">Consejo Estudiantil</h3>
-                <p class="portal-description">
-                    Propone mejoras, vota por ideas y reporta problemas.
-                </p>
-                <div class="portal-stats">
-                    <span class="stat-badge stat-active"><?php echo $pendingSuggestions; ?> pendientes</span>
-                    <span class="stat-badge"><?php echo $impactStats['suggestions_implemented']; ?> implementadas</span>
+                <div class="portal-card portal-accent">
+                    <div class="portal-icon section-icon-tips"></div>
+                    <h3 class="portal-title">Consejo Estudiantil</h3>
+                    <p class="portal-description">
+                        Propone mejoras, vota por ideas y reporta problemas.
+                    </p>
+                    <div class="portal-stats">
+                        <span class="stat-badge stat-active"><?php echo $pendingSuggestions; ?> pendientes</span>
+                        <span class="stat-badge"><?php echo $impactStats['suggestions_implemented']; ?>
+                            implementadas</span>
+                    </div>
+                    <a href="democracy.php" class="portal-btn btn btn-accent">Participar</a>
                 </div>
-                <a href="democracy.php" class="portal-btn btn btn-accent">Participar</a>
-            </div>
         </div>
- </section>
+        </section>
         <?php if (!empty($trendingPosts)): ?>
-        <div class="trending-section">
-            <h2 class="section-heading">
-                Publicaciones Populares
-            </h2>
-            <div class="trending-grid">
-                <?php foreach ($trendingPosts as $post): ?>
-                    <a href="Read.php?id=<?php echo $post['id']; ?>" class="trending-card">
-                        <h4 class="trending-title"><?php echo htmlEscape($post['title']); ?></h4>
-                        <div class="trending-meta">
-                            <span class="trending-author">por <?php echo htmlEscape($post['author_name']); ?></span>
-                            <span class="trending-date"><?php echo TraduceSQLfecha($post['created_at']); ?></span>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+            <div class="trending-section">
+                <h2 class="section-heading">
+                    Publicaciones Populares
+                </h2>
+                <div class="trending-grid">
+                    <?php foreach ($trendingPosts as $post): ?>
+                        <a href="Read.php?id=<?php echo $post['id']; ?>" class="trending-card">
+                            <h4 class="trending-title"><?php echo htmlEscape($post['title']); ?></h4>
+                            <div class="trending-meta">
+                                <span class="trending-author">por <?php echo htmlEscape($post['author_name']); ?></span>
+                                <span class="trending-date"><?php echo TraduceSQLfecha($post['created_at']); ?></span>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
 
         <?php if (!empty($recentChanges)): ?>
-        <div class="changes-section">
-            <h2 class="section-heading">
-                Mejoras Recientes en la Escuela
-            </h2>
-            <div class="changes-grid">
-                <?php foreach ($recentChanges as $change): ?>
-                    <div class="change-card">
-                        <h4 class="change-title"><?php echo htmlEscape($change['title']); ?></h4>
-                        <p class="change-description"><?php echo htmlEscape($change['description']); ?></p>
-                        <small class="change-date">
-                            Implementado el <?php echo TraduceSQLfecha($change['implemented_at']); ?>
-                        </small>
-                    </div>
-                <?php endforeach; ?>
+            <div class="changes-section">
+                <h2 class="section-heading">
+                    Mejoras Recientes en la Escuela
+                </h2>
+                <div class="changes-grid">
+                    <?php foreach ($recentChanges as $change): ?>
+                        <div class="change-card">
+                            <h4 class="change-title"><?php echo htmlEscape($change['title']); ?></h4>
+                            <p class="change-description"><?php echo htmlEscape($change['description']); ?></p>
+                            <small class="change-date">
+                                Implementado el <?php echo TraduceSQLfecha($change['implemented_at']); ?>
+                            </small>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
 
     </div>
-    
+
     <a href="us.php" class="help-button" title="Más Información">?</a>
 
     <footer class="footer">
-        &copy; 2025 CbBlogs. Suerte  
+        &copy; 2025 CbBlogs. Suerte
         <div class="rotating-slogan">
             <p id="slogan-text">Comparte tus ideas</p>
         </div>
@@ -260,14 +269,14 @@ if ($hour < 12) {
         }
 
         setInterval(rotateSlogan, 3000);
-        
+
         document.addEventListener('DOMContentLoaded', function() {
             const cards = document.querySelectorAll('.portal-card, .stat-card, .trending-card, .change-card');
-            
+
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
-                
+
                 setTimeout(() => {
                     card.style.transition = 'all 0.5s ease';
                     card.style.opacity = '1';
@@ -277,88 +286,88 @@ if ($hour < 12) {
         });
 
 
-        
+
 document.addEventListener('DOMContentLoaded', function() {
-    const hamButton = document.getElementById('hamButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const menuBackdrop = document.getElementById('menuBackdrop');
-    
-    if (!hamButton || !mobileMenu || !menuBackdrop) {
-        console.warn('Mobile menu elements not found');
-        return;
-    }
-    
-    // Toggle menu function
-    function toggleMenu() {
-        const isOpen = mobileMenu.classList.contains('open');
-        
-        if (isOpen) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    }
-    
-    // Open menu
-    function openMenu() {
-        mobileMenu.classList.add('open');
-        menuBackdrop.classList.add('active');
-        hamButton.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-    }
-    
-    // Close menu
-    function closeMenu() {
-        mobileMenu.classList.remove('open');
-        menuBackdrop.classList.remove('active');
-        hamButton.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-    
-    // Hamburger button click
-    hamButton.addEventListener('click', toggleMenu);
-    
-    // Backdrop click - close menu
-    menuBackdrop.addEventListener('click', closeMenu);
-    
-    // Close menu when clicking a link
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            // Small delay for better UX
-            setTimeout(closeMenu, 150);
-        });
-    });
-    
-    // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-            closeMenu();
-        }
-    });
-    
-    // Handle window resize - close menu if resized to desktop
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            if (window.innerWidth > 768 && mobileMenu.classList.contains('open')) {
-                closeMenu();
+            const hamButton = document.getElementById('hamButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBackdrop = document.getElementById('menuBackdrop');
+
+            if (!hamButton || !mobileMenu || !menuBackdrop) {
+                console.warn('Mobile menu elements not found');
+                return;
             }
-        }, 250);
-    });
-    
-    // Prevent body scroll when menu is open (iOS fix)
-    let scrollPosition = 0;
-    
+
+            // Toggle menu function
+            function toggleMenu() {
+                const isOpen = mobileMenu.classList.contains('open');
+
+                if (isOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            }
+
+            // Open menu
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                menuBackdrop.classList.add('active');
+                hamButton.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            // Close menu
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                menuBackdrop.classList.remove('active');
+                hamButton.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            // Hamburger button click
+            hamButton.addEventListener('click', toggleMenu);
+
+            // Backdrop click - close menu
+            menuBackdrop.addEventListener('click', closeMenu);
+
+            // Close menu when clicking a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Small delay for better UX
+                    setTimeout(closeMenu, 150);
+                });
+            });
+
+            // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                    closeMenu();
+                }
+            });
+
+            // Handle window resize - close menu if resized to desktop
+            let resizeTimer;
+    window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+                    if (window.innerWidth > 768 && mobileMenu.classList.contains('open')) {
+                        closeMenu();
+                    }
+                }, 250);
+            });
+
+            // Prevent body scroll when menu is open (iOS fix)
+            let scrollPosition = 0;
+
     mobileMenu.addEventListener('touchmove', function(e) {
-        if (mobileMenu.scrollHeight > mobileMenu.clientHeight) {
-            // Allow scroll within menu
-            return;
-        }
-        e.preventDefault();
-    }, { passive: false });
-});
+                if (mobileMenu.scrollHeight > mobileMenu.clientHeight) {
+                    // Allow scroll within menu
+                    return;
+                }
+                e.preventDefault();
+            }, { passive: false });
+        });
     </script>
 </body>
 </html>
