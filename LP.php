@@ -83,7 +83,7 @@ if ($hour < 12) {
             <a href="Read.php">Leer Blogs</a>
             <a href="resources.php">Recursos</a>
             <a href="democracy.php">Tu Voz</a>
-            <a href="Account-info.php">Mi Cuenta</a>
+            <a href="Account-info.php">Mi Cuenta</a>z   
             <?php if (isAdmin()): ?>
                 <a href="admin_dashboard.php">Panel Admin</a>
             <?php endif; ?>
@@ -97,6 +97,22 @@ if ($hour < 12) {
             &#9776;
         </button>
     </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="menuBackdrop" class="menu-backdrop"></div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <a href="LP.php" class="active">Inicio</a>
+        <a href="Read.php">Leer Blogs</a>
+        <a href="resources.php">Recursos</a>
+        <a href="democracy.php">Tu Voz</a>
+        <a href="Account-info.php">Mi Cuenta</a>
+        <?php if (isAdmin()): ?>
+            <a href="admin_dashboard.php">Panel Admin</a>
+        <?php endif; ?>
+        <a href="logout.php">Cerrar Sesión</a>
+    </div>
 
     <div class="landing-container">
         <div class="hero-section">

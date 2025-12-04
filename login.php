@@ -3,14 +3,10 @@ require_once 'lib/common.php';
 session_start();
 
 $error = '';
+$isAlreadyLoggedIn = isLoggedIn();
 
-if (isLoggedIn()) {
-    header('Location: LP.php');
-    exit();
-}
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Solo procesar el login si el usuario NO está ya logueado
+if (!$isAlreadyLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo = getPDO();
 
     $usuario = trim($_POST['user'] ?? '');
@@ -60,30 +56,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="glass-container">
-        <form action="login.php" method="POST" class="form" id="loginForm">
-            <h2>Iniciar Sesión</h2>
-
-            <?php if ($error): ?>
-                <div
-                    style="background: var(--error); color: white; padding: 10px; border-radius: 8px; margin-bottom: 1rem;">
-                    <?php echo htmlEscape($error); ?>
+        <?php if ($isAlreadyLoggedIn): ?>
+            <!-- Usuario ya tiene sesión iniciada - mostrar mensaje para cerrar sesión -->
+            <div class="form" id="alreadyLoggedIn">
+                <h2>¡Ya tienes una sesión activa!</h2>
+                <div style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 152, 0, 0.2)); 
+                            border: 1px solid rgba(255, 193, 7, 0.5); 
+                            color: #fff; 
+                            padding: 15px; 
+                            border-radius: 12px; 
+                            margin-bottom: 1.5rem;
+                            text-align: center;">
+                    <p style="margin: 0 0 10px 0; font-size: 1.1rem;">
+                        👋 Hola, <strong><?php echo htmlEscape($_SESSION['nombre'] ?? $_SESSION['usuario'] ?? 'Usuario'); ?></strong>
+                    </p>
+                    <p style="margin: 0; opacity: 0.9;">
+                        Ya has iniciado sesión. Para usar otra cuenta, primero cierra tu sesión actual.
+                    </p>
                 </div>
-            <?php endif; ?>
-            <div class="input-wrapper">
-                <input type="text" name="user" placeholder="Usuario"
-                    value="<?php echo isset($_POST['user']) ? htmlEscape($_POST['user']) : ''; ?>" required autofocus> //Make this an if statement to tell the user to log out if they already have a session started other wise just show the placeholder
+                
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="LP.php" style="display: block; text-align: center; padding: 12px 20px; 
+                                            background: linear-gradient(135deg, var(--accent), var(--secondary)); 
+                                            color: white; text-decoration: none; border-radius: 8px; 
+                                            font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;"
+                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(78, 84, 200, 0.4)';"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        🏠 Ir al Hub
+                    </a>
+                    <a href="logout.php" style="display: block; text-align: center; padding: 12px 20px; 
+                                                background: rgba(255, 255, 255, 0.1); 
+                                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                                color: white; text-decoration: none; border-radius: 8px; 
+                                                font-weight: 500; transition: background 0.2s;"
+                       onmouseover="this.style.background='rgba(239, 68, 68, 0.3)';"
+                       onmouseout="this.style.background='rgba(255, 255, 255, 0.1)';">
+                        🚪 Cerrar Sesión
+                    </a>
+                </div>
+                
+                <p style="margin-top: 1.5rem;"><a href="index.php">← Volver al inicio</a></p>
             </div>
+        <?php else: ?>
+            <!-- Usuario no tiene sesión - mostrar formulario de login -->
+            <form action="login.php" method="POST" class="form" id="loginForm">
+                <h2>Iniciar Sesión</h2>
 
-            <div class="input-wrapper">
-                <input type="password" name="clave" placeholder="Contraseña" required>
-            </div>
+                <?php if ($error): ?>
+                    <div
+                        style="background: var(--error); color: white; padding: 10px; border-radius: 8px; margin-bottom: 1rem;">
+                        <?php echo htmlEscape($error); ?>
+                    </div>
+                <?php endif; ?>
+                <div class="input-wrapper">
+                    <input type="text" name="user" placeholder="Usuario"
+                        value="<?php echo isset($_POST['user']) ? htmlEscape($_POST['user']) : ''; ?>" required autofocus>
+                </div>
 
-            <button type="submit" id="submitBtn">Iniciar Sesión</button>
+                <div class="input-wrapper">
+                    <input type="password" name="clave" placeholder="Contraseña" required>
+                </div>
 
-            <p>¿No tienes cuenta? <a href="registrar.php">Regístrate aquí</a></p>
+                <button type="submit" id="submitBtn">Iniciar Sesión</button>
 
-            <p><a href="index.php">← Volver al inicio</a></p>
-        </form>
+                <p>¿No tienes cuenta? <a href="registrar.php">Regístrate aquí</a></p>
+
+                <p><a href="index.php">← Volver al inicio</a></p>
+            </form>
+        <?php endif; ?>
     </div>
 </body>
 
