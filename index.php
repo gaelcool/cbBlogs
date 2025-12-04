@@ -81,7 +81,7 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
         <?php endif; ?>
 
         <section class="why-join glass-container" style="margin-bottom: 40px; padding: 2.5rem;">
-            <h2 style="text-align: center; color: var(--accent); margin-bottom: 2rem;">¿Por qué unirte?</h2>
+            <h2 class="why-join-title">¿Por qué unirte?</h2>
             <div class="benefits-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
                 <div class="benefit-item" style="text-align: center;">
@@ -103,7 +103,16 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
         </section>
 
         <div class="info-grid">
-
+            <div class="info-card glass-container">
+                <h2>Seguridad y Privacidad</h2>
+                <ul class="info-list" style="font-weight: bold;">
+                    <li>Acceso cerrado solo para estudiantes</li>
+                    <li>Base de datos reiniciada cada 3 años</li>
+                    <li>Sin mensajes privados 1-1</li>
+                    <li>Todo el contenido es visible para la comunidad</li>
+                    <li>Sistema de moderación estudiantil</li>
+                </ul>
+            </div>
 
             <div class="info-card glass-container">
                 <h2>Sobre la Institución</h2>
@@ -129,16 +138,7 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
 
 
-            <div class="info-card glass-container">
-                <h2>Seguridad y Privacidad</h2>
-                <ul class="info-list">
-                    <li>Acceso cerrado solo para estudiantes</li>
-                    <li>Base de datos reiniciada cada 3 años</li>
-                    <li>Sin mensajes privados 1-1</li>
-                    <li>Todo el contenido es visible para la comunidad</li>
-                    <li>Sistema de moderación estudiantil</li>
-                </ul>
-            </div>
+
         </div>
     </main>
 

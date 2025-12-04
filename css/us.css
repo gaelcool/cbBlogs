@@ -230,6 +230,7 @@ nav {
     display: flex;
     flex-direction: column;
     width: 100%;
+    color: var(--text);
     gap: 10px;
 }
 
@@ -408,16 +409,19 @@ div.location {
         .menu-content p {
             margin-bottom: 10px;
             font-size: 0.95rem;
+            color: var(--text);
         }
 
         .menu-content ul {
             list-style: none;
             padding-left: 0;
+            color: var(--text);
         }
 
         .menu-content li {
             padding: 5px 0;
             padding-left: 20px;
+            color: var(--text);
             position: relative;
             font-size: 0.9rem;
         }

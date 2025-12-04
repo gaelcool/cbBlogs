@@ -155,11 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="validation-box" id="claveMsg"></div>
       </div>
       
-      <div class="input-wrapper">
+      <!-- <div class="input-wrapper">
         <input type="tel" name="telefono" id="telefono" placeholder="Teléfono (opcional)" 
                value="<?php echo isset($_POST['telefono']) ? htmlEscape($_POST['telefono']) : ''; ?>">
         <div class="validation-box" id="telefonoMsg"></div>
-      </div>
+      </div> -->
       
       <div class="input-wrapper">
         <select name="genero_lit_fav" id="genero_lit_fav">
