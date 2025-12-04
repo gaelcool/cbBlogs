@@ -367,25 +367,10 @@ VALUES
 -- Blog Posts with Authentic Teen Voice & Topics
 INSERT INTO post (title, subtitle, author_name, content, tag, created_at, file_path)
 VALUES
-    -- Relatable school life
     ('Sobreviviendo a los Exámenes Finales', 
-     'Tips que realmente funcionan (lo juro)',
+     'Tips que realmente funcionan',
      'valeria_tech',
-     'Ok, sí sé que todos decimos "esta vez sí voy a estudiar con tiempo" y luego terminamos a las 3 AM tomando café frío y rogando que el tema 7 no venga en el examen.
-
-PERO esta vez tengo estrategias que de verdad me han salvado:
-
-1. La técnica Pomodoro pero versión realista: 25 minutos de estudio, 5 de TikTok (sí, lo admito). Lo importante es ser honesto contigo mismo.
-
-2. Grupos de estudio que NO se conviertan en sesión de chisme. Difícil? Sí. Imposible? No tanto si ponen el cel en modo avión.
-
-3. Playlist de lo-fi hip hop. Clásico pero funciona. Nada de reggaetón porque terminas cantando en lugar de memorizando fórmulas.
-
-4. Snacks estratégicos. Chocolate negro para el cerebro, agua para no deshidratarte de tanto estrés.
-
-Lo más importante: DORMIR. En serio. Una vez hice un examen con 2 horas de sueño y juro que confundí la independencia de México con la revolución francesa. True story.
-
-Suerte a todos! Nos vemos del otro lado 🫡',
+     'Todos decimos que esta vez sí vamos a estudiar con tiempo y luego terminamos a las 3 AM tomando café frío rogando que el tema 7 no venga. Pero tengo estrategias que me han salvado. La técnica Pomodoro funciona si eres honesto: 25 minutos de estudio y 5 de descanso. Los grupos de estudio ayudan si no se convierten en sesión de chisme. Una playlist de lo-fi hip hop es clave porque el reggaetón te distrae. Y lo más importante es dormir. En serio. Una vez hice un examen con 2 horas de sueño y confundí la independencia de México con la revolución francesa. Suerte a todos.',
      'General',
      datetime('2024-11-28 22:15:00'),
      NULL),
@@ -393,23 +378,7 @@ Suerte a todos! Nos vemos del otro lado 🫡',
     ('Por Qué el Anime No Es "Solo Para Niños"',
      'Rant necesario',
      'diego_gamer',
-     'Estoy HARTO de que la gente me diga "ya estás grande para ver monitos".
-
-Primero: no son monitos. Son obras de arte con narrativas complejas que hacen que las películas de Hollywood parezcan básicas.
-
-¿Has visto Death Note? Es literalmente un thriller psicológico mejor escrito que el 90% de las series "para adultos".
-
-¿Attack on Titan? Crítica social y dilemas morales que te dejan pensando por días.
-
-¿Your Name? Romance que te hace llorar más que cualquier película cursi de Nicholas Sparks.
-
-El problema es que la gente ve un episodio de Doraemon y cree que todo el anime es así. Es como juzgar todo el cine por haber visto Barney.
-
-Anime es un MEDIO, no un género. Hay anime de todo: terror, romance, deportes, cocina, lo que sea.
-
-Así que la próxima vez que alguien te diga que "ya deberías madurar", recuérdale que el anime trata temas más profundos que sus realities favoritos.
-
-Fin del rant. Gracias por venir a mi TED Talk 🎤',
+     'Estoy harto de que la gente me diga que ya estoy grande para ver monitos. Primero que nada no son monitos, son obras de arte con narrativas complejas. Death Note es un thriller psicológico mejor escrito que el noventa por ciento de las series para adultos. Attack on Titan tiene crítica social y dilemas morales que te dejan pensando por días. Your Name es un romance que hace llorar más que cualquier película cursi. El problema es que la gente ve un episodio de algo infantil y cree que todo el anime es así. Anime es un medio, no un género. Hay de todo: terror, romance, deportes, cocina. La próxima vez que alguien diga que debería madurar le voy a recordar que el anime trata temas más profundos que sus realities favoritos.',
      'General',
      datetime('2024-11-30 19:45:00'),
      NULL),
@@ -417,80 +386,23 @@ Fin del rant. Gracias por venir a mi TED Talk 🎤',
     ('La Ansiedad Social Es Real',
      'Y está bien no estar bien',
      'lucia_dreams',
-     'No sé ustedes, pero a veces siento que soy la única persona en la escuela que se pone nerviosa por TODO.
-
-¿Pedir ketchup en la cafetería? Ansiedad.
-¿Participar en clase? Ansiedad nivel 1000.
-¿Mandarle mensaje a alguien primero? Mejor me quedo callada.
-
-Y lo peor es cuando la gente te dice "solo sé más segura de ti misma" como si fuera tan fácil como cambiar de canal.
-
-Pero he aprendido algunas cosas:
-
-- No estás sola. Literal hay MILLONES de personas que sienten lo mismo.
-- Pequeños pasos cuentan. Hoy participé en clase (casi me muero pero lo hice).
-- Tus amigos reales van a entender. Los que no, no valen la pena.
-- Está bien pedir ayuda. Fui con la psicóloga de la escuela y honestamente cambió mi vida.
-
-Si te identificas con esto, manda dm. A veces solo necesitamos saber que no somos los únicos weirdos del mundo 💙
-
-PD: Si alguien más tiene sudor en las manos 24/7 por los nervios, no eres tú, soy yo',
+     'A veces siento que soy la única persona en la escuela que se pone nerviosa por todo. Pedir ketchup en la cafetería me da ansiedad. Participar en clase es ansiedad nivel mil. Mandarle mensaje a alguien primero mejor ni lo intento. Y lo peor es cuando la gente te dice que solo seas más segura como si fuera tan fácil. Pero he aprendido que no estoy sola, hay millones de personas que sienten lo mismo. Pequeños pasos cuentan. Hoy participé en clase y casi me muero pero lo hice. Tus amigos reales van a entender. Está bien pedir ayuda. Fui con la psicóloga de la escuela y cambió mi vida. Si te identificas con esto no eres el único weirdo del mundo.',
      'General',
      datetime('2024-11-27 16:30:00'),
      NULL),
 
     ('Cómo Empecé a Programar (Y Por Qué Deberías Intentarlo)',
-     'No necesitas ser un genio de las matemáticas',
+     'No necesitas ser un genio',
      'alejandro_code',
-     'Hace un año no sabía ni qué era Python (pensaba que era solo la serpiente lol).
-
-Hoy ya hice mi primera app y estoy aprendiendo desarrollo web. Y NO, no soy un genio ni tengo 10 en matemáticas.
-
-¿Por qué programar está cool?
-
-1. Es literalmente magia moderna. Le dices a la computadora qué hacer y lo hace. Power trip instantáneo.
-
-2. Puedes hacer CUALQUIER COSA. Apps, juegos, páginas web, bots, lo que  se te ocurra.
-
-3. No necesitas equipo caro. Una laptop de hace 5 años y internet = suficiente.
-
-4. Comunidad increíble. Stack Overflow, Reddit, Discord. Todos ayudan a todos.
-
-CÓMO EMPEZAR (sin morir en el intento):
-
-- Codecademy o freeCodeCamp para lo básico
-- Python primero (es el más amigable para principiantes)
-- Haz proyectos TONTOS. Mi primer programa sumaba dos números. Todos empezamos así.
-- No te compares con los "niños prodigio" de YouTube. Ellos editaron 40 horas de estudio para hacer un video de 10 minutos.
-
-Si estás aburrido, curioso, o solo quieres hacer algo diferente, inténtalo. What's the worst that could happen?
-
-Recursos en los comentarios 👇',
-     'No Ficción',
+     'Hace un año no sabía ni qué era Python y pensaba que era solo la serpiente. Hoy ya hice mi primera app y estoy aprendiendo desarrollo web. Y no soy un genio ni tengo diez en matemáticas. Programar está cool porque es literalmente magia moderna. Le dices a la computadora qué hacer y lo hace. Puedes hacer cualquier cosa: apps, juegos, páginas web, bots. No necesitas equipo caro, una laptop de hace cinco años funciona perfecto. La comunidad es increíble, todos ayudan a todos. Para empezar usa Codecademy o freeCodeCamp. Python primero porque es el más amigable. Haz proyectos tontos, mi primer programa sumaba dos números. No te compares con los niños prodigio de YouTube porque ellos editan cuarenta horas para hacer un video de diez minutos. Si estás aburrido o curioso solo inténtalo.',
+     'General',
      datetime('2024-12-01 14:20:00'),
      NULL),
 
     ('Playlist Para Cuando Todo Es Demasiado',
-     '10 canciones que me salvan',
+     'Canciones que me salvan',
      'sofia_artista',
-     'Todos tenemos esos días donde TODO es demasiado. La escuela, la familia, los amigos, existir en general.
-
-Esta es mi playlist de emergencia. No es lo típico, pero funciona:
-
-1. "Breathe Me" - Sia (cuando necesito llorar todo out)
-2. "Holocene" - Bon Iver (para sentirme pequeña pero en el buen sentido)
-3. "The Night We Met" - Lord Huron (¿Cómo esta canción NO es más  famosa?)
-4. "Saturn" - Sleeping At Last (mi terapia musical)
-5. "Youth" - Daughter (sad girl anthem)
-6. "Into The Mystic" - Van Morrison (old but gold, me calma SIEMPRE)
-7. "To Build A Home" - The Cinematic Orchestra (si no lloras con esta, no tienes alma)
-8. "Skinny Love" - Bon Iver (la original, no la cover)
-9. "Mad World" - Gary Jules (sad pero aesthetic)
-10. "The Night King" - Ramin Djawadi (instrumental, te hace sentir epic)
-
-Pónganse audífonos, acuéstense, y solo... sientan. A veces eso es suficiente.
-
-¿Cuál es su go-to song cuando el mundo es mucho? 🎧',
+     'Todos tenemos esos días donde todo es demasiado. La escuela, la familia, los amigos, existir en general. Esta es mi playlistde emergencia. Breathe Me de Sia cuando necesito llorar. Holocene de Bon Iver para sentirme pequeña pero en el buen sentido. The Night We Met de Lord Huron debería ser más famosa. Saturn de Sleeping At Last es mi terapia musical. Youth de Daughter es el himno de las chicas tristes. Into The Mystic de Van Morrison es vieja pero me calma siempre. To Build A Home de The Cinematic Orchestra te hace llorar. Skinny Love de Bon Iver la versión original no la cover. Mad World de Gary Jules es triste pero aesthetic. The Night King de Ramin Djawadi es instrumental y te hace sentir epic. Pónganse audífonos y solo sientan. A veces eso es suficiente.',
      'General',
      datetime('2024-11-29 21:00:00'),
      NULL),
@@ -498,17 +410,7 @@ Pónganse audífonos, acuéstense, y solo... sientan. A veces eso es suficiente.
     ('El Poder de la Lectura', 
      'Cómo los libros transforman vidas',
      'maria_escritora',
-     'La lectura nos transporta a mundos nuevos y nos permite vivir mil vidas diferentes. Cada libro es una aventura que espera ser descubierta.
-
-Cuando abrimos un libro, no solo leemos palabras. Vivimos experiencias, conocemos personas (aunque sean ficticias), y aprendemos lecciones que ninguna clase podría enseñarnos.
-
-Mi libro favorito este año fue "Rayuela" de Cortázar. Sí, sé que suena pretencioso, pero la forma en que juega con la narrativa es GENIAL. Puedes leer los capítulos en orden diferente y la historia cambia.
-
-También estoy obsesionada con "La  casa de los espíritus" de Allende. Realismo mágico that hits different.
-
-Si no leen mucho, empiecen con algo corto. "El principito" no es solo para niños, btw. Tiene filosofía que te vuela la cabeza cuando lo lees de grande.
-
-Leer antes de dormir > scrollear en TikTok. Fight me 📚',
+     'La lectura nos transporta a mundos nuevos y nos permite vivir mil vidas diferentes. Cada libro es una aventura que espera ser descubierta. Cuando abrimos un libro no solo leemos palabras sino que vivimos experiencias y conocemos personas aunque sean ficticias. Aprendemos lecciones que ninguna clase podría enseñarnos. Mi libro favorito este año fue Rayuela de Cortázar. Sé que suena pretencioso pero la forma en que juega con la narrativa es genial. Puedes leer los capítulos en orden diferente y la historia cambia. También estoy obsesionada con La casa de los espíritus de Allende. Es realismo mágico increíble. Si no leen mucho empiecen con algo corto. El principito no es solo para niños, tiene filosofía profunda. Leer antes de dormir es mejor que scrollear en TikTok.',
      'Romance',
      datetime('2024-11-15 10:00:00'),
      NULL),
@@ -516,27 +418,7 @@ Leer antes de dormir > scrollear en TikTok. Fight me 📚',
     ('Versos del Alma', 
      'Poemas sobre la naturaleza humana',
      'carlos_poeta',
-     'En el silencio de la noche,
-las palabras encuentran su voz,
-y el corazón late al ritmo
-de versos que nacen del alma.
-
-Somos historias sin contar,
-páginas en blanco esperando
-que alguien se atreva a escribir
-la verdad que llevamos dentro.
-
-El amor llega en susurros,
-el dolor grita en silencio,
-y entre ambos, navegamos
-este mar de sentimientos.
-
----
-
-Escribo porque callar duele más que las palabras.
-Porque a veces un poema dice lo que mil conversaciones no pueden.
-
-Si alguien más escribe cuando está triste/feliz/confundido, déjame leer sus versos 🖊️',
+     'En el silencio de la noche las palabras encuentran su voz y el corazón late al ritmo de versos que nacen del alma. Somos historias sin contar, páginas en blanco esperando que alguien se atreva a escribir la verdad que llevamos dentro. El amor llega en susurros, el dolor grita en silencio, y entre ambos navegamos este mar de sentimientos. Escribo porque callar duele más que las palabras. Porque a veces un poema dice lo que mil conversaciones no pueden. Si alguien más escribe cuando está triste o feliz o confundido déjame leer sus versos.',
      'Poesía',
      datetime('2024-11-20 15:30:00'),
      NULL),
@@ -544,20 +426,7 @@ Si alguien más escribe cuando está triste/feliz/confundido, déjame leer sus v
     ('Viaje a las Estrellas', 
      'Una reflexión sobre la exploración espacial',
      'ana_blogger',
-     'Mirando hacia el cosmos infinito, nos damos cuenta de lo pequeños que somos. La ciencia ficción nos prepara para un futuro entre las estrellas.
-
-Estuve viendo videos de SpaceX y quedé OBSESIONADA. ¿Se imaginan ser la generación que va a colonizar Marte?
-
-Carl Sagan dijo "somos polvo de estrellas" y es LITERAL. Los átomos en nuestro cuerpo se formaron en estrellas que explotaron hace millones de años. We are literally made of space stuff.
-
-Mi teoría: en 50 años vamos a tener escuelas en la Luna. Mark my words.
-
-Libros/series que TIENEN que ver si les gusta el tema:
-- The Expanse (serie)
-- Project Hail Mary (libro)
-- Cosmos (documental de Sagan)
-
-El espacio es aterrador pero también la cosa más hermosa del universo 🚀✨',
+     'Mirando hacia el cosmos infinito nos damos cuenta de lo pequeños que somos. La ciencia ficción nos prepara para un futuro entre las estrellas. Estuve viendo videos de SpaceX y quedé obsesionada. Se imaginan ser la generación que va a colonizar Marte. Carl Sagan dijo que somos polvo de estrellas y es literal. Los átomos en nuestro cuerpo se formaron en estrellas que explotaron hace millones de años. Somos literalmente hechos de materia espacial. Mi teoría es que en cincuenta años vamos a tener escuelas en la Luna. The Expanse como serie, Project Hail Mary como libro y Cosmos el documental de Sagan son imprescindibles si les gusta el tema. El espacio es aterrador pero también la cosa más hermosa del universo.',
      'Ciencia Ficción',
      datetime('2024-11-25 12:45:00'),
      NULL),
@@ -565,35 +434,15 @@ El espacio es aterrador pero también la cosa más hermosa del universo 🚀✨'
     ('Mundos de Fantasía', 
      'La magia en la literatura moderna',
      'jorge_escritor',
-     'Los mundos fantásticos nos enseñan más sobre nuestra realidad de lo que imaginamos. La magia existe en cada página que leemos.
-
-Tolkien, Rowling, Martin, Sanderson... todos crearon universos enteros con sus propias reglas, idiomas, historias.
-
-Eso es PODER puro.
-
-Mi objetivo este año: escribir mi propio mundo de fantasía. Ya tengo el mapa (sí, dibujé un mapa como nerd que soy), 3 sistemas de magia, y una profecía vaga que voy a usar como plot device.
-
-¿Alguien más tiene proyectos de escritura? Podemos hacer un grupo para compartir ideas y motivarnos 📝⚔️',
+     'Los mundos fantásticos nos enseñan más sobre nuestra realidad de lo que imaginamos. La magia existe en cada página que leemos. Tolkien, Rowling, Martin y Sanderson todos crearon universos enteros con sus propias reglas, idiomas e historias. Eso es poder puro. Mi objetivo este año es escribir mi propio mundo de fantasía. Ya tengo el mapa dibujado como el nerd que soy, tres sistemas de magia y una profecía vaga que voy a usar como plot device. Si alguien más tiene proyectos de escritura podemos hacer un grupo para compartir ideas y motivarnos.',
      'Fantasía',
      datetime('2024-12-01 09:20:00'),
-     NULL),
+     'img\council.jpg'),
 
     ('Hot Takes Que Nadie Pidió',
      'Opiniones impopulares del CBTis',
      'ricardo_rebel',
-     'Ok hear me out:
-
-1. La pizza de la cafetería > pizza de cualquier lugar. Sí, está grasosa. Eso es parte del encanto.
-
-2. Madrugar para clases NO te hace más productivo. Solo te hace más cansado.
-
-3. Los trabajos en equipo son una tortura social disfrazada de "colaboración".
-
-4. Las tablets NO reemplazan a los cuadernos. Escribir  a mano ayuda a memorizar mejor (está comprobado científicamente).
-
-5. El wifi de la escuela es lento A PROPÓSITO para que no nos distraigamos. Change my mind.
-
-¿Cuál es su hot take? No juzgo (ok maybe sí un poco) 🔥',
+     'La pizza de la cafetería es mejor que la de cualquier lugar. Sí está grasosa pero eso es parte del encanto. Madrugar para clases no te hace más productivo solo más cansado. Los trabajos en equipo son una tortura social disfrazada de colaboración. Las tablets no reemplazan a los cuadernos porque escribir a mano ayuda a memorizar mejor y está comprobado científicamente. El wifi de la escuela es lento a propósito para que no nos distraigamos.',
      'General',
      datetime('2024-12-02 18:30:00'),
      NULL);
@@ -640,7 +489,7 @@ VALUES
     (datetime('2024-12-02 20:00:00'), 'diego_gamer', 3, 'Teoría del wifi lento es canon ahora', 11);
 
 -- Study Resources with teen-relevant content
-INSERT INTO study_resources (title, description, subject, grade, resource_type, text_content, uploader_id, is_approved, approved_by, view_count, helpful_votes)
+INSERT INTO study_resources (title, description, subject, grade, resource_type, text_content, external_url, uploader_id, is_approved, approved_by, view_count, helpful_votes)
 VALUES
     ('Guía de Gramática Española',
      'Reglas esenciales de gramática para escritores',
@@ -661,6 +510,7 @@ HABER = verbo ("debe haber comida")
 A VER = mirar ("a ver qué pasa")
 
 No confundir o los profes de español llorarán.',
+     NULL,
      5,
      1,
      1,
@@ -674,7 +524,7 @@ No confundir o los profes de español llorarán.',
      'text',
      'La escritura creativa requiere práctica y técnica. Aquí aprenderás lo esencial:
 
-SHOW, DON'T TELL
+SHOW, DON''T TELL
 Malo: "Ana estaba triste"
 Bueno: "Ana miraba la lluvia sin parpadear, sus dedos temblaban al sostener la taza vacía"
 
@@ -689,6 +539,7 @@ NO USES ADVERBIOS EN EXCESO
 
 PRÁCTICA DIARIA
 Aunque sean 100 palabras. La constancia > inspiración.',
+     NULL,
      6,
      1,
      1,
@@ -717,6 +568,7 @@ Si entendiste un problema, haz 3 más parecidos. Tu cerebro aprende por patrones
 
 PIDE AYUDA TEMPRANO
 No esperes a estar 100% perdido. Si algo no tiene sentido, pregunta YA.',
+     NULL,
      8,
      1,
      1,
@@ -741,6 +593,7 @@ MOL: El concepto más confuso de la historia. Think of it como "docena" pero par
 LABORATORIO: Lee las instrucciones DOS veces. Usa lentes SIEMPRE. No mezcles cosas random "para ver qué pasa".
 
 Pro tip: La química orgánica es puro memorizar. Flashcards son tu salvador.',
+     NULL,
      11,
      1,
      1,
@@ -753,6 +606,7 @@ Pro tip: La química orgánica es puro memorizar. Flashcards son tu salvador.',
      5,
      'link',
      NULL,
+     'https://www.gutenberg.org',
      7,
      0,
      NULL,
@@ -813,22 +667,23 @@ VALUES
 -- User Contributions tracking
 INSERT INTO user_contributions (user_id, contribution_type, contribution_id)
 VALUES
-    (4, 'blog', 2),
-    (5, 'blog', 3),
-    (6, 'blog', 4),
-    (7, 'blog', 5),
-    (8, 'blog', 6),
-    (9, 'blog', 7),
-    (10, 'blog', 8),
-    (11, 'blog', 9),
-    (12, 'blog', 10),
+    (8, 'blog', 2),
+    (9, 'blog', 3),
+    (12, 'blog', 4),
+    (11, 'blog', 5),
+    (10, 'blog', 6),
+    (4, 'blog', 7),
+    (5, 'blog', 8),
+    (6, 'blog', 9),
+    (7, 'blog', 10),
     (13, 'blog', 11),
-    (4, 'comment', 2),
-    (5, 'comment', 3),
-    (6, 'comment', 4),
-    (7, 'resource', 1),
+    (9, 'comment', 2),
+    (12, 'comment', 3),
+    (11, 'comment', 4),
+    (5, 'resource', 1),
     (6, 'resource', 2),
     (8, 'resource', 3),
-    (11, 'resource', 4);
+    (11, 'resource', 4),
+    (7, 'resource', 5);
 
 
