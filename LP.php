@@ -270,7 +270,7 @@ if ($hour < 12) {
 
         setInterval(rotateSlogan, 3000);
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.portal-card, .stat-card, .trending-card, .change-card');
 
             cards.forEach((card, index) => {
@@ -283,11 +283,25 @@ if ($hour < 12) {
                     card.style.transform = 'translateY(0)';
                 }, index * 50);
             });
+
+            // Make portal cards clickable
+            document.querySelectorAll('.portal-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on a button or link directly
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+
+                    const btn = card.querySelector('.portal-btn');
+                    if (btn) {
+                        btn.click();
+                    }
+                });
+            });
         });
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const hamButton = document.getElementById('hamButton');
             const mobileMenu = document.getElementById('mobileMenu');
             const menuBackdrop = document.getElementById('menuBackdrop');
@@ -340,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Close menu on escape key
-    document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
                     closeMenu();
                 }
@@ -348,9 +362,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Handle window resize - close menu if resized to desktop
             let resizeTimer;
-    window.addEventListener('resize', function() {
+            window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
+                resizeTimer = setTimeout(function () {
                     if (window.innerWidth > 768 && mobileMenu.classList.contains('open')) {
                         closeMenu();
                     }
@@ -360,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Prevent body scroll when menu is open (iOS fix)
             let scrollPosition = 0;
 
-    mobileMenu.addEventListener('touchmove', function(e) {
+            mobileMenu.addEventListener('touchmove', function (e) {
                 if (mobileMenu.scrollHeight > mobileMenu.clientHeight) {
                     // Allow scroll within menu
                     return;
@@ -370,4 +384,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     </script>
 </body>
+
 </html>

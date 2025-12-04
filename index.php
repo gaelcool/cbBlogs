@@ -39,9 +39,10 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
                     <div class="section-iconOG"></div>
                     <p class="subtitle">Tu Foro Estudiantil del CBTis 03</p>
                     <p class="hero-description">
-                        Una plataforma exclusiva diseñada para fortalecer la comunidad estudiantil del CBTis 03.
-                        Comparte ideas, lee experiencias de tus compañeros y mantente al día con lo que sucede
-                        en nuestra escuela. Un espacio seguro donde ambos turnos y todos los grados pueden conectar.
+                        Tu voz importa. CbBlogs es la plataforma exclusiva para estudiantes del CBTis 03 donde puedes
+                        compartir ideas,
+                        leer experiencias y conectar con tu comunidad. Un espacio seguro, moderado por estudiantes, para
+                        unir a ambos turnos y todos los grados.
                     </p>
                 </div>
             </div>
@@ -78,6 +79,28 @@ $featuredPost = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </section>
         <?php endif; ?>
+
+        <section class="why-join glass-container" style="margin-bottom: 40px; padding: 2.5rem;">
+            <h2 style="text-align: center; color: var(--accent); margin-bottom: 2rem;">¿Por qué unirte?</h2>
+            <div class="benefits-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div class="benefit-item" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">:O</div>
+                    <h3 style="margin-bottom: 0.5rem;">Expresa tus Ideas</h3>
+                    <p>Publica blogs sobre temas que te apasionan y recibe feedback de la comunidad.</p>
+                </div>
+                <div class="benefit-item" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">❤️</div>
+                    <h3 style="margin-bottom: 0.5rem;">Conecta</h3>
+                    <p>Conoce estudiantes de otros semestres y especialidades con intereses similares.</p>
+                </div>
+                <div class="benefit-item" style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">:3</div>
+                    <h3 style="margin-bottom: 0.5rem;">Participa</h3>
+                    <p>Vota en encuestas y propuestas para mejorar nuestra escuela.</p>
+                </div>
+            </div>
+        </section>
 
         <div class="info-grid">
 
