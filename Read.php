@@ -291,6 +291,20 @@ unset($blog); // deshacer
         // inicializar
         document.addEventListener('DOMContentLoaded', function () {
             filterBlogs();
+
+            // Make blog cards clickable
+            document.querySelectorAll('.blog-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on a button or link directly
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+
+                    const link = card.querySelector('.read-more-btn');
+                    if (link) {
+                        link.click();
+                    }
+                });
+            });
         });
     </script>
 </body>

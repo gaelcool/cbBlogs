@@ -22,9 +22,7 @@ $user_contributions = $stmt->fetchColumn() ?: 0;
     <title>Escribir Blog - CbNoticias</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-    rel="stylesheet">
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap"
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Fira+Sans:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="css/write.css">
 </head>
 
@@ -53,20 +51,23 @@ $user_contributions = $stmt->fetchColumn() ?: 0;
     <div class=glasscontainer>
         <div class="write-container">
             <div class="write-form">
-            <h1> Escribir Nuevo Blog</h1> <div class="iconOG"></div>
+                <h1> Escribir Nuevo Blog</h1>
+                <div class="iconOG"></div>
 
                 <form action="save-blog.php" method="POST" id="blogForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="titulo">Título del Blog</label>
-                        <input type="text" name="titulo" id="titulo" placeholder="Escribe un título atractivo" maxlength="200" required>
+                            <input type="text" name="titulo" id="titulo" placeholder="Escribe un título atractivo"
+                                maxlength="200" required>
                             <div class="char-counter" id="tituloCounter">0/200</div>
                         </div>
 
                         <div class="form-group">
                             <label for="tag">Género/Tag</label>
                             <select name="tag" id="tag">
-                            <option value="<?php echo htmlEscape($genero_fav); ?>"><?php echo htmlEscape($genero_fav); ?></option>
+                                <option value="<?php echo htmlEscape($genero_fav); ?>">
+                                    <?php echo htmlEscape($genero_fav); ?></option>
                                 <option value="Ficción">Ficción</option>
                                 <option value="No Ficción">No Ficción</option>
                                 <option value="Ciencia Ficción">Ciencia Ficción</option>
@@ -113,7 +114,8 @@ $user_contributions = $stmt->fetchColumn() ?: 0;
                 <a href="LP.php" class="btn back-btn">← Volver</a>
                 <button type="submit" class="btn submit-btn">📝 Publicar Blog</button>
                 <?php if ($user_contributions >= 100): ?>
-                        <a href="WriteWitMedia.php" class="btn media-btn" title="Desbloqueado por tener 100+ puntos de contribución">
+                    <a href="WriteWitMedia.php" class="btn media-btn"
+                        title="Desbloqueado por tener 100+ puntos de contribución">
                         Escribir con Media
                     </a>
                 <?php endif; ?>
@@ -150,18 +152,18 @@ $user_contributions = $stmt->fetchColumn() ?: 0;
         }
 
         // event listeners
-        document.getElementById('titulo').addEventListener('input', function() {
+        document.getElementById('titulo').addEventListener('input', function () {
             updateCounter(this, document.getElementById('tituloCounter'), 200);
         });
 
-        document.getElementById('subtitulo').addEventListener('input', function() {
+        document.getElementById('subtitulo').addEventListener('input', function () {
             updateCounter(this, document.getElementById('subtituloCounter'), 300);
         });
 
         document.getElementById('contenido').addEventListener('input', updateStats);
 
         // validación del formulario
-        document.getElementById('blogForm').addEventListener('submit', function(e) {
+        document.getElementById('blogForm').addEventListener('submit', function (e) {
             const titulo = document.getElementById('titulo').value.trim();
             const contenido = document.getElementById('contenido').value.trim();
 
@@ -211,7 +213,7 @@ $user_contributions = $stmt->fetchColumn() ?: 0;
         setInterval(saveDraft, 30000);
 
         // limpiar borrador cuando se manda exitosamente
-        document.getElementById('blogForm').addEventListener('submit', function() {
+        document.getElementById('blogForm').addEventListener('submit', function () {
             sessionStorage.removeItem('blogDraft');
         });
     </script>
