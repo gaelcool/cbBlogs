@@ -50,17 +50,17 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['error'] === UPLOAD_ERR_
     $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     $filename = $_FILES['file_path']['name'];
     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-    
+
     if (in_array($ext, $allowed)) {
-        $targetDir = 'data/blog_media/';
+        $targetDir = 'img/blog_media/';
         // Create directory if it doesn't exist
         if (!file_exists($targetDir)) {
             mkdir($targetDir, 0777, true);
         }
-        
+
         $newFilename = uniqid() . '_' . basename($filename);
         $targetPath = $targetDir . $newFilename;
-        
+
         if (move_uploaded_file($_FILES['file_path']['tmp_name'], $targetPath)) {
             // Save only filename, Read.php prepends 'data/blog_media/'
             $filePath = $newFilename;
@@ -70,13 +70,13 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['error'] === UPLOAD_ERR_
 
 try {
     $pdo = getPDO();
-    
+
     // Insertar blog en la base de datos
     $stmt = $pdo->prepare("
         INSERT INTO post (title, subtitle, author_name, content, tag, file_path, created_at) 
         VALUES (:titulo, :subtitulo, :autor, :contenido, :tag, :file_path, CURRENT_TIMESTAMP)
     ");
-    
+
     $result = $stmt->execute([
         ':titulo' => $titulo,
         ':subtitulo' => $subtitulo,
@@ -103,7 +103,7 @@ try {
         header("Location: Write.php?status=error&message=Error al publicar el blog");
         exit;
     }
-    
+
 } catch (PDOException $e) {
     error_log("Error saving blog: " . $e->getMessage());
     echo '<script>
