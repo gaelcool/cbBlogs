@@ -62,7 +62,7 @@ if (isset($_FILES['file_path']) && $_FILES['file_path']['error'] === UPLOAD_ERR_
         $targetPath = $targetDir . $newFilename;
 
         if (move_uploaded_file($_FILES['file_path']['tmp_name'], $targetPath)) {
-            // Save only filename, Read.php prepends 'data/blog_media/'
+            // Save only filename, Read.php prepends 'img/blog_media/'
             $filePath = $newFilename;
         }
     }
