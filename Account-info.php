@@ -56,7 +56,7 @@ if ($points >= 150)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Cuenta - CbNoticias</title>
+    <title>Mi Cuenta - CbBlogs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -125,7 +125,7 @@ if ($points >= 150)
 
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias</h2>
+            <h2> CbBlogs</h2>
         </div>
         <div class="nav-links">
             <a href="LP.php">Inicio</a>
@@ -261,7 +261,7 @@ if ($points >= 150)
     </div>
 
     <footer class="footer">
-        &copy; 2025 CbNoticias. Suerte
+        &copy; 2025 CbBlogs. Suerte
     </footer>
 
     <script>
