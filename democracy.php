@@ -5,13 +5,14 @@ requiereLogin();
 
 $pdo = getPDO();
 
-// Get admin info to determine if we show admin links
+//determina si demostrarmos cierta info o no.
 $adminInfo = obtenerAdminInfo($pdo, $_SESSION['id_usr']);
 
-// Fetch active suggestions
+//obtenemos las sugerencias activas
 $stmt = $pdo->prepare("
     SELECT s.*, u.nombre as author_name,
-    (SELECT COUNT(*) FROM suggestion_supporters WHERE suggestion_id = s.id) as real_support_count
+    (SELECT COUNT(*) FROM suggestion_supporters WHERE suggestion_id = s.id) as real_support_count,
+    (SELECT COUNT(*) FROM suggestion_comments WHERE suggestion_id = s.id AND is_deleted = 0) as comment_count
     FROM suggestions s
     JOIN user u ON s.author_id = u.id_usr
     WHERE s.status != 'declined'
@@ -20,6 +21,7 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -27,14 +29,14 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Voz Cuenta - CbNoticias</title>
+    <title>Tu Voz Cuenta - CbBlogs</title>
     <link rel="stylesheet" href="css/democracy.css">
 </head>
 
 <body>
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias</h2>
+            <h2> CbBlogs</h2>
         </div>
         <div class="nav-links">
             <a href="LP.php">Inicio</a>
@@ -52,7 +54,10 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="democracy-container">
         <div class="page-header">
-            <h1> <div id="movingIcon" class="iconDemocracy"></div><span style="position:relative; z-index:2;">Tu Voz Cuenta</span></h1>
+            <h1>
+                <div id="movingIcon" class="iconDemocracy"></div><span style="position:relative; z-index:2;">Tu Voz
+                    Cuenta</span>
+            </h1>
             <p>Participa en la mejora de nuestra escuela</p>
 
             <div class="action-buttons">
@@ -114,7 +119,42 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 ❤️ <?php echo $sug['real_support_count']; ?> apoyos
                             </div>
                             <button class="btn-support" onclick="voteSuggestion(<?php echo $sug['id']; ?>)">❤️ Apoyar</button>
+                            <?php if ($sug['comment_count'] > 0): ?>
+                                <button class="btn-comments" onclick="toggleComments(<?php echo $sug['id']; ?>)">
+                                    💬 <?php echo $sug['comment_count']; ?>
+                                    comentario<?php echo $sug['comment_count'] != 1 ? 's' : ''; ?>
+                                </button>
+                            <?php endif; ?>
                         </div>
+
+                        <?php if ($sug['comment_count'] > 0): ?>
+                            <div class="comments-section" id="comments-<?php echo $sug['id']; ?>" style="display: none;">
+                                <?php
+                                // Fetch comments for this suggestion
+                                $commStmt = $pdo->prepare("
+                                    SELECT sc.*, u.nombre as commenter_name
+                                    FROM suggestion_comments sc
+                                    JOIN user u ON sc.user_id = u.id_usr
+                                    WHERE sc.suggestion_id = :sid AND sc.is_deleted = 0
+                                    ORDER BY sc.created_at DESC
+                                ");
+                                $commStmt->execute([':sid' => $sug['id']]);
+                                $comments = $commStmt->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                <?php foreach ($comments as $comment): ?>
+                                    <div class="comment-item">
+                                        <div class="comment-header">
+                                            <span class="comment-author">🛡️
+                                                <?php echo htmlEscape($comment['commenter_name']); ?></span>
+                                            <span class="comment-date"><?php echo TraduceSQLfecha($comment['created_at']); ?></span>
+                                        </div>
+                                        <div class="comment-text">
+                                            <?php echo nl2br(htmlEscape($comment['comment_text'])); ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -152,6 +192,62 @@ $suggestions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Hubo un error al procesar tu voto.');
+                });
+        }
+
+        function toggleComments(suggestionId) {
+            const commentsSection = document.getElementById('comments-' + suggestionId);
+            if (commentsSection) {
+                commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function toggleAdminCommentForm(suggestionId) {
+            const form = document.getElementById('admin-form-' + suggestionId);
+            if (form) {
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function submitAdminComment(event, suggestionId) {
+            event.preventDefault();
+
+            const input = document.getElementById('admin-comment-input-' + suggestionId);
+            const statusDiv = document.getElementById('admin-comment-status-' + suggestionId);
+            const commentText = input.value.trim();
+
+            if (!commentText) {
+                statusDiv.innerHTML = '<span style="color: #dc3545;">El comentario no puede estar vacío.</span>';
+                return;
+            }
+
+            statusDiv.innerHTML = '<span style="color: #666;">Enviando...</span>';
+
+            fetch('submit_suggestion_comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'suggestion_id=' + suggestionId + '&comment_text=' + encodeURIComponent(commentText)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        input.value = '';
+                        statusDiv.innerHTML = '<span style="color: #28a745;">✓ Comentario publicado</span>';
+
+                        setTimeout(() => {
+                            toggleAdminCommentForm(suggestionId);
+                            statusDiv.innerHTML = '';
+                            location.reload(); // Reload to show new comment
+                        }, 1000);
+                    } else {
+                        statusDiv.innerHTML = '<span style="color: #dc3545;">Error: ' + data.message + '</span>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    statusDiv.innerHTML = '<span style="color: #dc3545;">Error al enviar el comentario.</span>';
                 });
         }
 

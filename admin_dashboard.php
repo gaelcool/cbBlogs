@@ -16,7 +16,7 @@ $success = $_GET['success'] ?? '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - CbNoticias</title>
+    <title>Panel de Administración - CbBlogs</title>
     <link rel="stylesheet" href="css/read.css"> <!-- reutilizando read.css para el glassmorphism -->
     <style>
         body {
@@ -141,7 +141,7 @@ $success = $_GET['success'] ?? '';
 <body>
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias Admin</h2>
+            <h2> CbBlogs Admin</h2>
         </div>
         <div class="nav-links">
             <a href="LP.php">Inicio</a>

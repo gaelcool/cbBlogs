@@ -179,6 +179,18 @@ CREATE TABLE suggestion_supporters (
     UNIQUE(suggestion_id, user_id)
 );
 
+CREATE TABLE suggestion_comments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    suggestion_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    comment_text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_deleted BOOLEAN DEFAULT 0,
+    FOREIGN KEY (suggestion_id) REFERENCES suggestions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(id_usr) ON DELETE CASCADE
+);
+
+
 CREATE TABLE implemented_changes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     suggestion_id INTEGER NOT NULL,
@@ -289,6 +301,8 @@ CREATE INDEX idx_resources_uploader ON study_resources(uploader_id);
 -- Suggestions indices
 CREATE INDEX idx_suggestions_status ON suggestions(status);
 CREATE INDEX idx_suggestions_author ON suggestions(author_id);
+CREATE INDEX idx_suggestion_comments_suggestion ON suggestion_comments(suggestion_id);
+
 
 -- ProblemasHH (Grievances) indices
 CREATE INDEX idx_problemasHH_status ON problemasHH(status);

@@ -91,6 +91,17 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
 }
 
+/* Validation Styles */
+.input-wrapper input.error {
+    border-color: #ff4444;
+    background-color: #fff8f8;
+}
+
+.input-wrapper input.success {
+    border-color: var(--secondary);
+    background-color: #f0fff4;
+}
+
 button, .btn {
   width: 100%;
   padding: 12px 20px;

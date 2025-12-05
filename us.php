@@ -199,10 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <footer>
             <div class="ftback"></div>
             <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Cbnoticias</h3>
-                    <p>localhost:unpuerto/cbnoticias/</p>
-                </div>
+
                 <div class="footer-contact">
                     <div class="bottom_left">
                         <p>2025 CbNoticias© Suerte.</p>

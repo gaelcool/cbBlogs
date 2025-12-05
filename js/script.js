@@ -3,32 +3,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const formulario = document.getElementById('registerForm');
   const botonEnviar = document.getElementById('submitBtn');
-  const camposTexto = ['nombre', 'correo', 'usuario', 'clave', 'telefono'];
+  const camposTexto = ['nombre', 'usuario', 'clave'];
 
   const patrones = {
     nombre: /^[a-záéíóúñA-ZÁÉÍÓÚÑ\s]+$/,
-    correo: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     usuario: /^[a-zA-Z0-9_]{3,20}$/,
-    clave: /^.{6,}$/,
-    telefono: /^[0-9]{10}$/
+    clave: /^.{6,}$/
   };
 
   // Mensajes de ayuda
+  // Mensajes de ayuda
   const mensajes = {
     nombre: 'Solo letras y espacios',
-    correo: 'usuario@cbtis03.edu',
     usuario: '3-20 caracteres (letras, números, guiones bajos)',
-    clave: 'Mínimo 6 caracteres',
-    telefono: '10 dígitos (opcional)'
+    clave: 'Mínimo 6 caracteres'
   };
 
   // Estado de validación de campos
+  // Estado de validación de campos
   const estadoValido = {
     nombre: true,
-    correo: true,
     usuario: false,
-    clave: false,
-    telefono: true 
+    clave: false
   };
 
   

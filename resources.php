@@ -22,14 +22,14 @@ $resources = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos de Estudio - CbNoticias</title>
+    <title>Recursos de Estudio - CbBlogs</title>
     <link rel="stylesheet" href="css/resources.css">
 </head>
 
 <body>
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias</h2>
+            <h2> CbBlogs</h2>
         </div>
         <div class="nav-links">
             <a href="LP.php">Inicio</a>

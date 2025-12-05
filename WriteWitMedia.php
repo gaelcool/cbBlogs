@@ -24,13 +24,13 @@ $currentImg = "img/blog_media/default.jpg";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escribir Blog - CbNoticias</title>
+    <title>Escribir Blog - CbBlogs</title>
     <link rel="stylesheet" href="css/writemedia.css">
 </head>
 <body>
     <nav class="nav">
         <div class='logo'>
-            <h2> CbNoticias</h2>
+            <h2> CbBlogs</h2>
         </div>
         <div class="nav-fishies"></div>
         <div class="nav-links">

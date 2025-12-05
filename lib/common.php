@@ -1,14 +1,17 @@
 <?php
 
-function getRootPath(){
+function getRootPath()
+{
     return realpath(__DIR__ . '/..');
 }
 
-function getDatabasePath(){
+function getDatabasePath()
+{
     return getRootPath() . '/data/data.sqlite';
 }
 
-function getDsn(){
+function getDsn()
+{
     return 'sqlite:' . getDatabasePath();
 }
 
@@ -16,11 +19,10 @@ function getPDO()
 {
     $pdo = new PDO(getDsn());
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
+
     // Foreign key constraints need to be enabled manually in SQLite
     $result = $pdo->query('PRAGMA foreign_keys = ON');
-    if ($result === false)
-    {
+    if ($result === false) {
         throw new Exception('Could not turn on foreign key constraints');
     }
 
@@ -37,17 +39,17 @@ function TraduceSQLfecha($sqlDate)
     if (empty($sqlDate)) {
         return 'Unknown date';
     }
-    
+
     $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
-    
+
     if ($date === false) {
         $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
     }
-    
+
     if ($date === false) {
         return $sqlDate;
     }
-    
+
     return $date->format('d/m/Y');
 }
 
@@ -64,14 +66,14 @@ function intentaLogin(PDO $pdo, $usuario, $clave)
     ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['usuario' => $usuario]);
-    
+
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     // Direct password comparison (plain text - matching your system)
     if ($user && $user['clave'] === $clave) {
         return $user;
     }
-    
+
     return false;
 }
 
@@ -79,28 +81,28 @@ function intentaLogin(PDO $pdo, $usuario, $clave)
 function convertnewlines($content)
 {
     $escaped = htmlEscape($content);
-    
-    // Normalize line endings to \n
+
+    // Normaliza finales de linea con \n
     $escaped = str_replace(array("\r\n", "\r"), "\n", $escaped);
-    
-    // Split into paragraphs by double newlines
+
+    // Divide en parafos
     $paragraphs = explode("\n\n", $escaped);
-    
+
     $formatted = '';
-    
+
     foreach ($paragraphs as $paragraph) {
         $paragraph = trim($paragraph);
         if (!empty($paragraph)) {
-            // Convert single newlines within paragraph to <br>
+            // Convierte saltos de linea en <br>
             $paragraphWithBreaks = nl2br($paragraph);
             $formatted .= '<p>' . $paragraphWithBreaks . '</p>';
         }
     }
-    
+
     return $formatted;
 }
 
-function login($usuario, $nombre, $genero_lit_fav =null, $fecha_registro = null, $grade = 1, $email = null, $id_usr = null)
+function login($usuario, $nombre, $genero_lit_fav = null, $fecha_registro = null, $grade = 1, $email = null, $id_usr = null)
 {
     session_regenerate_id(true);
     $_SESSION['usuario'] = $usuario;
@@ -118,11 +120,8 @@ function isLoggedIn()
     return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 }
 
-/**
- * Get admin information for a user (COMBINED FUNCTION - efficient)
- * Returns: ['es_admin' => bool, 'nivel' => int|null, 'info' => array|null]
- */
-function obtenerAdminInfo(PDO $pdo, $user_id) {
+function obtenerAdminInfo(PDO $pdo, $user_id)
+{
     $stmt = $pdo->prepare("
         SELECT id_admin, nivel, usuario_id, asignado_reportes, puntos_contribucion, fecha_creacion
         FROM admin
@@ -130,15 +129,15 @@ function obtenerAdminInfo(PDO $pdo, $user_id) {
     ");
     $stmt->execute([':user_id' => $user_id]);
     $adminInfo = $stmt->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($adminInfo) {
         return [
             'es_admin' => true,
-            'nivel' => (int)$adminInfo['nivel'],
+            'nivel' => (int) $adminInfo['nivel'],
             'info' => $adminInfo
         ];
     }
-    
+
     return [
         'es_admin' => false,
         'nivel' => null,
@@ -146,43 +145,36 @@ function obtenerAdminInfo(PDO $pdo, $user_id) {
     ];
 }
 
-/**
- * Check if current user is an admin with optional minimum level check
- * @param int $nivel_minimo Minimum admin level required (1=Ayudante, 2=Moderador, 3=Admin)
- * @return bool
- */
-function isAdmin($nivel_minimo = 1) {
+function isAdmin($nivel_minimo = 1)
+{
     if (!isLoggedIn() || !isset($_SESSION['id_usr'])) {
         return false;
     }
-    
+
     $pdo = getPDO();
     $adminData = obtenerAdminInfo($pdo, $_SESSION['id_usr']);
-    
+
     if (!$adminData['es_admin']) {
         return false;
     }
-    
+
     return $adminData['nivel'] >= $nivel_minimo;
 }
 
-/**
- * Require login - redirect if not logged in
- */
-function requiereLogin() {
+
+function requiereLogin()
+{
     if (!isLoggedIn()) {
         header('Location: login.php');
         exit();
     }
 }
 
-/**
- * Require admin access with optional minimum level
- * @param int $nivel_minimo Minimum admin level (1=Ayudante, 2=Moderador, 3=Admin)
- */
-function requiereAdmin($nivel_minimo = 1) {
+
+function requiereAdmin($nivel_minimo = 1)
+{
     requiereLogin();
-    
+
     if (!isAdmin($nivel_minimo)) {
         header('Location: LP.php');
         exit();
@@ -216,22 +208,19 @@ function logout()
 
 
 //calcular edad de cuenta de usuario
-function calcularDiasRegistrado($fecha_registro) {
+function calcularDiasRegistrado($fecha_registro)
+{
     // Convert DB timestamp into a DateTime object
     $fecha_reg = new DateTime($fecha_registro);
     $hoy = new DateTime();
- //whyy no funciona :((((( 
-    // Difference in days
+    //ya sirve
     $dias = $hoy->diff($fecha_reg)->days;
 
     return $dias;
 }
 
-
-/**
- * Fetch TODOS los usuarios del db
- */
-function fetchAllusuarios() {
+function fetchAllusuarios()
+{
     $pdo = getPDO();
     $stmt = $pdo->prepare('
         SELECT id_usr, usuario, nombre, email, genero_lit_fav, fecha_registro
@@ -247,7 +236,8 @@ function fetchAllusuarios() {
 }
 
 
-function fetchAllPosts() {
+function fetchAllPosts()
+{
     $pdo = getPDO();
     $query = $pdo->query('
         SELECT id, title, subtitle, author_name, content, created_at, tag, file_path
@@ -265,7 +255,8 @@ function fetchAllPosts() {
 /**
  * Fetch all commentarios de la db
  */
-function fetchAllComments() {  
+function fetchAllComments()
+{
     $pdo = getPDO();
     $query = $pdo->query('
         SELECT user_id_C, text, created_at, grade
@@ -280,9 +271,6 @@ function fetchAllComments() {
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
-/**
- * Get user data by username
- */
 function getUserByUsername(PDO $pdo, $usuario)
 {
     $sql = "
@@ -295,7 +283,7 @@ function getUserByUsername(PDO $pdo, $usuario)
     ";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['usuario' => $usuario]);
-    
+
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -311,7 +299,7 @@ function updateUserInfo(PDO $pdo, $usuario, $nombre, $email, $genero_lit_fav)
             genero_lit_fav = :genero_lit_fav
         WHERE usuario = :usuario
     ";
-    
+
     $stmt = $pdo->prepare($sql);
     return $stmt->execute([
         'nombre' => $nombre,
@@ -330,13 +318,14 @@ function countUserPosts(PDO $pdo, $usuario)
 {
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM post WHERE author_name = :usuario");
     $stmt->execute([':usuario' => $usuario]);
-    return (int)$stmt->fetchColumn();
+    return (int) $stmt->fetchColumn();
 }
 
-function countTotalPosts(PDO $pdo) {
+function countTotalPosts(PDO $pdo)
+{
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM post");
     $stmt->execute();
-    return (int)$stmt->fetchColumn();
+    return (int) $stmt->fetchColumn();
 }
 
 
@@ -344,7 +333,8 @@ function countTotalPosts(PDO $pdo) {
 /**
  * Delete a user by ID
  */
-function deleteUser(PDO $pdo, $id_usr) {
+function deleteUser(PDO $pdo, $id_usr)
+{
     // Prevent deleting self or super admins if needed, but for now just delete
     $stmt = $pdo->prepare("DELETE FROM user WHERE id_usr = :id_usr");
     return $stmt->execute([':id_usr' => $id_usr]);
@@ -353,7 +343,8 @@ function deleteUser(PDO $pdo, $id_usr) {
 /**
  * Delete a post by ID
  */
-function deletePost(PDO $pdo, $post_id) {
+function deletePost(PDO $pdo, $post_id)
+{
     $stmt = $pdo->prepare("DELETE FROM post WHERE id = :id");
     return $stmt->execute([':id' => $post_id]);
 }
@@ -361,7 +352,8 @@ function deletePost(PDO $pdo, $post_id) {
 /**
  * Get a single post by ID
  */
-function getPostById(PDO $pdo, $post_id) {
+function getPostById(PDO $pdo, $post_id)
+{
     $stmt = $pdo->prepare("
         SELECT id, title, subtitle, author_name, content, created_at, tag
         FROM post
@@ -372,9 +364,10 @@ function getPostById(PDO $pdo, $post_id) {
 }
 
 /**
- * Fetch AND calculate user impact statistics
+ * Obten Y calcula stats de impacto de un usuario
  */
-function getUserImpactStats(PDO $pdo, $user_id) {
+function getUserImpactStats(PDO $pdo, $user_id)
+{
     $stmt = $pdo->prepare("
         SELECT 
             (SELECT COUNT(*) FROM study_resources WHERE uploader_id = :uid AND is_approved = 1) as resources_shared,
@@ -386,7 +379,8 @@ function getUserImpactStats(PDO $pdo, $user_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function getUserPoints(PDO $pdo, $user_id) {
+function getUserPoints(PDO $pdo, $user_id)
+{
     $stmt = $pdo->prepare("
         SELECT user_contributions
         FROM user
@@ -400,7 +394,8 @@ function getUserPoints(PDO $pdo, $user_id) {
 /**
  * Create study resource directory if it doesn't exist
  */
-function ensureResourcesDirectory() {
+function ensureResourcesDirectory()
+{
     $dir = getRootPath() . '/data/study_resources/';
     if (!file_exists($dir)) {
         mkdir($dir, 0755, true);
@@ -417,12 +412,13 @@ function ensureResourcesDirectory() {
  * @param string $detalles Details/description of the action
  * @return bool Success status
  */
-function registrarAccionProblemaHH(PDO $pdo, $problema_id, $admin_id, $tipo, $detalles = '') {
+function registrarAccionProblemaHH(PDO $pdo, $problema_id, $admin_id, $tipo, $detalles = '')
+{
     $stmt = $pdo->prepare("
         INSERT INTO problemasHH_acciones (problemasHH_id, admin_id, tipo_accion, detalles_accion)
         VALUES (:problema_id, :admin_id, :tipo, :detalles)
     ");
-    
+
     return $stmt->execute([
         ':problema_id' => $problema_id,
         ':admin_id' => $admin_id,
